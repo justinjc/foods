@@ -36,8 +36,8 @@ languages:
         - name: Tags
           url: tags/
           weight: 10
-        - name: Wiki
-          url: https://github.com/adityatelange/hugo-PaperMod/wiki/
+        - name: Source
+          url: https://github.com/justinjc/foods
 
 outputs:
   home:
@@ -48,7 +48,7 @@ outputs:
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   hideFooter: true
-  description: 'Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod'
+  description: foods
   author: me
   # author: ["Me", "You"] # multiple authors
 
@@ -61,14 +61,14 @@ params:
   ShowPostNavLinks: false
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
-  ShowRssButtonInSectionTermList: true
+  ShowRssButtonInSectionTermList: false
   ShowToc: true
   comments: false
   images: ['papermod-cover.png']
 
   profileMode:
     enabled: false
-    title: PaperMod
+    title: Foods
     imageUrl: '#'
     imageTitle: my image
     # imageWidth: 120
@@ -80,20 +80,20 @@ params:
         url: tags
 
   homeInfoParams:
-    Title: ''
+    Title: Foods
     Content: ''
 
   socialIcons: []
 
   editPost:
-    URL: 'https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content'
+    URL: 'https://github.com/justinjc/foods/tree/content/content'
     Text: 'edit' # edit text
     appendFilePath: true # to append file path to Edit link
 
-  # label:
-  #     text: "Home"
-  #     icon: icon.png
-  #     iconHeight: 35
+  label:
+    text: 'Home'
+  #   icon: icon.png
+  #   iconHeight: 35
 
   # analytics:
   #     google:
@@ -124,7 +124,7 @@ params:
 markup:
   goldmark:
     renderer:
-      unsafe: true
+      unsafe: false
   highlight:
     noClasses: false
     # anchorLineNos: true
@@ -134,22 +134,18 @@ markup:
     # style: monokai
 
 privacy:
-  vimeo:
-    disabled: false
-    simple: true
-
-  twitter:
-    disabled: false
-    enableDNT: true
-    simple: true
-
+  disqus:
+    disable: true
+  googleAnalytics:
+    disable: true
   instagram:
-    disabled: false
-    simple: true
-
+    disable: true
+  twitter:
+    disable: true
+  vimeo:
+    disable: true
   youtube:
-    disabled: false
-    privacyEnhanced: true
+    disable: true
 
 services:
   instagram:
