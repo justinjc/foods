@@ -1,33 +1,33 @@
 - id: prev_page
-  translation: "Prev"
+  translation: 'Prev'
 
 - id: next_page
-  translation: "Next"
+  translation: 'Next'
 
 - id: read_time
   translation:
-    one : "1 min"
-    other: "{{ .Count }} min"
+    one: '1 min'
+    other: '{{ .Count }} min'
 
 - id: words
   translation:
-    one : "word"
-    other: "{{ .Count }} words"
+    one: '{{ .Count }} word'
+    other: '{{ .Count }} words'
 
 - id: toc
-  translation: "Table of Contents"
+  translation: 'Table of Contents'
 
 - id: translations
-  translation: "Translations"
+  translation: 'Translations'
 
 - id: home
-  translation: "Home"
+  translation: 'Home'
 
 - id: edit_post
-  translation: "Edit"
+  translation: 'Edit'
 
 - id: code_copy
-  translation: "copy"
+  translation: 'copy'
 
 - id: code_copied
-  translation: "copied!"
+  translation: 'copied!'
