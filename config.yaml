@@ -27,12 +27,12 @@ languages:
       series: series
     menu:
       main:
+        - name: Search
+          url: search/
+          weight: 1
         - name: Archive
           url: archives
           weight: 5
-        - name: Search
-          url: search/
-          weight: 10
         - name: Tags
           url: tags/
           weight: 10
@@ -80,23 +80,10 @@ params:
         url: tags
 
   homeInfoParams:
-    Title: 'PaperMod'
-    Content: >
-      Welcome to demo of hugo's theme PaperMod.
+    Title: ''
+    Content: ''
 
-      - **PaperMod** is a simple but fast and responsive theme with useful feature-set that enhances UX.
-
-      - Do give a 🌟 on Github !
-
-      - PaperMod is based on theme [Paper](https://github.com/nanxiaobei/hugo-paper).
-
-  socialIcons:
-    - name: github
-      url: 'https://github.com/adityatelange/hugo-PaperMod'
-    - name: KoFi
-      url: 'https://ko-fi.com/adityatelange'
-    - name: Rss
-      url: 'index.xml'
+  socialIcons: []
 
   editPost:
     URL: 'https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content'
