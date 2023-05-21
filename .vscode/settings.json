@@ -1,0 +1,6 @@
+{
+  // Keep template formatting.
+  "[html]": {
+    "editor.defaultFormatter": null,
+  },
+}
