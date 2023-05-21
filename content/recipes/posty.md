@@ -18,10 +18,6 @@ disableShare: false
 disableHLJS: false
 hideSummary: false
 searchHidden: false
-ShowReadingTime: false
-ShowBreadCrumbs: true
-ShowPostNavLinks: true
-ShowWordCount: false
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
@@ -34,6 +30,8 @@ editPost:
     URL: "https://github.com/<path_to_repo>/content"
     Text: "edit" # edit text
     appendFilePath: true # to append file path to Edit link
+# layout: testy
 ---
 
 weeee
+d

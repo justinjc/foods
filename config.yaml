@@ -58,12 +58,12 @@ params:
   ShowReadingTime: false
   # disableSpecial1stPost: true
   displayFullLangName: true
-  ShowPostNavLinks: true
+  ShowPostNavLinks: false
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
   ShowRssButtonInSectionTermList: true
   ShowToc: true
-  # comments: false
+  comments: false
   images: ['papermod-cover.png']
 
   profileMode:
@@ -120,10 +120,10 @@ params:
   #     apple_touch_icon: "<link / abs url>"
   #     safari_pinned_tab: "<link / abs url>"
 
-  # cover:
-  #     hidden: true # hide everywhere but not in structured data
-  #     hiddenInList: true # hide on list pages and home
-  #     hiddenInSingle: true # hide on single page
+  cover:
+    # hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    # hiddenInSingle: true # hide on single page
 
   fuseOpts:
     isCaseSensitive: false
