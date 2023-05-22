@@ -2,7 +2,7 @@
 title: Mac n cheese
 date: 2023-05-21T12:30:18-04:00
 draft: true
-layout: recipe
+layout: recipes
 recipe:
   ingredients:
     - name: thingy
