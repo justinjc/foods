@@ -1,7 +1,7 @@
 ---
 title: Mac n cheese
 date: 2023-05-21T12:30:18-04:00
-draft: true
+draft: false
 layout: recipes
 recipe:
   ingredients:
@@ -13,27 +13,27 @@ recipe:
     - id: preheat
       desc: preheat oven
       start:
-      duration:
+      duration: 1m
       dependsOn:
     - id: bacon
       desc: cook bacon
       start:
-      duration:
+      duration: 10m
       dependsOn:
     - id: shrimp
       desc: cook shrimp
       start:
-      duration:
+      duration: 5s
       dependsOn:
     - id: water
       desc: boil water
       start:
-      duration:
+      duration: 15m
       dependsOn:
     - id: pasta
       desc: boil pasta
       start:
-      duration:
+      duration: 5m
       dependsOn:
 ---
 
