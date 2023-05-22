@@ -27,13 +27,20 @@
   {{- partial "toc.html" . }}
   {{- end }}
 
-  {{- if .Params.recipe }}
-  <ol>
-  {{- range $k, $v := .Params.recipe }}
-    <li>{{ $k }}:{{ $v }}</li>
+  {{- if .Params.recipe.ingredients }}
+  Ingredients
+  <table class="ingredients-table">
+    <tbody>
+      {{- range $item := .Params.recipe.ingredients }}
+        <tr>
+          <td class="ingredient-num">{{ $item.num }}</td><td class="ingredient-name">{{ $item.name }}</td>
+        </tr>
+      {{- end }}
+    </tbody>
+  </table>
   {{- end }}
-  </ol>
-  {{- end }}
+
+  <hr />
 
   {{- if .Content }}
   <div class="post-content">

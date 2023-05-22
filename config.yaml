@@ -51,7 +51,7 @@ params:
   description: foods
   author: me
   # author: ["Me", "You"] # multiple authors
-
+  hideMeta: true
   defaultTheme: auto
   # disableThemeToggle: true
   ShowShareButtons: false
@@ -85,10 +85,10 @@ params:
 
   socialIcons: []
 
-  editPost:
-    URL: 'https://github.com/justinjc/foods/tree/content/content'
-    Text: 'edit' # edit text
-    appendFilePath: true # to append file path to Edit link
+  # editPost:
+  #   URL: 'https://github.com/justinjc/foods/tree/content/content'
+  #   Text: 'edit' # edit text
+  #   appendFilePath: true # to append file path to Edit link
 
   label:
     text: 'Home'

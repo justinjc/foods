@@ -1,7 +1,11 @@
 {{- $.Scratch.Add "index" slice -}}
 {{- range site.RegularPages -}}
-    {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) }}
-    {{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" .Summary "ingredients" .Params.recipe.ingredients) -}}
-    {{- end }}
+  {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) }}
+    {{- $data := newScratch -}}
+    {{- range .Params.recipe.ingredients -}}
+      {{- $data.Add "ingredients" (slice .name) -}}
+    {{- end -}}
+    {{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" .Summary "ingredients" ($data.Get  "ingredients")) -}}
+  {{- end }}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}

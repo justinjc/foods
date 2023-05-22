@@ -26,10 +26,10 @@ cover:
     caption: "caption here" # display caption under cover
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
-editPost:
-    URL: "https://github.com/<path_to_repo>/content"
-    Text: "edit" # edit text
-    appendFilePath: true # to append file path to Edit link
+# editPost:
+#     URL: "https://github.com/<path_to_repo>/content"
+#     Text: "edit" # edit text
+#     appendFilePath: true # to append file path to Edit link
 # layout: testy
 ---
 
