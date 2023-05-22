@@ -1,14 +1,12 @@
-
 let gantt = [];
-{{ range $item := .Params.recipe.gantt }}
+
 gantt.push({
-  "id": "{{ $item.id }}",
-  "desc":  "{{ $item.desc }}",
-  "start": "{{ $item.start }}",
-  "duration": "{{ (time.ParseDuration $item.duration).Seconds }}",
-  "dependsOn": "{{ $item.dependsOn }}",
+  id: '{{ $item.id }}',
+  desc: '{{ $item.desc }}',
+  start: '{{ $item.start }}',
+  duration: '{{ (time.ParseDuration $item.duration).Seconds }}',
+  dependsOn: '{{ $item.dependsOn }}',
 });
-{{ end }}
 
 console.log(gantt);
 
