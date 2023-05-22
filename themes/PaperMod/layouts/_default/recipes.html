@@ -42,8 +42,8 @@
 
   <hr />
 
-  <h4>Gantt</h4>
   {{- if .Params.recipe.gantt }}
+  <h4>Gantt</h4>
   <ol id="gantt-data" class="display-none">
     {{- range $item := .Params.recipe.gantt }}
     <li
@@ -61,6 +61,7 @@
       ></li>
     {{- end}}
   </ol>
+  <div id="gantt-container"></div>
   {{- end}}
 
   <hr />
