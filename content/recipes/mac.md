@@ -11,7 +11,27 @@ recipe:
       num: 2.5 cups
   gantt:
     - id: preheat
-      desc:
+      desc: preheat oven
+      start:
+      duration:
+      dependsOn:
+    - id: bacon
+      desc: cook bacon
+      start:
+      duration:
+      dependsOn:
+    - id: shrimp
+      desc: cook shrimp
+      start:
+      duration:
+      dependsOn:
+    - id: water
+      desc: boil water
+      start:
+      duration:
+      dependsOn:
+    - id: pasta
+      desc: boil pasta
       start:
       duration:
       dependsOn:
