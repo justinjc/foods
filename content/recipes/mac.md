@@ -14,26 +14,31 @@ recipe:
       desc: preheat oven
       start:
       duration: 1m
+      end:
       dependsOn:
     - id: bacon
       desc: cook bacon
       start:
-      duration: 10m
+      duration:
+      end:
       dependsOn:
     - id: shrimp
       desc: cook shrimp
       start:
       duration: 5s
+      end:
       dependsOn:
     - id: water
       desc: boil water
       start:
       duration: 15m
+      end:
       dependsOn:
     - id: pasta
       desc: boil pasta
       start:
       duration: 5m
+      end:
       dependsOn:
 ---
 

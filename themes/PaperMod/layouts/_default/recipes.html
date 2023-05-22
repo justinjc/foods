@@ -44,9 +44,23 @@
 
   <h4>Gantt</h4>
   {{- if .Params.recipe.gantt }}
-  {{- range $item := .Params.recipe.gantt }}
-  <p>{{- $item.desc -}}</p>
-  {{- end}}
+  <ol id="gantt-data" class="display-none">
+    {{- range $item := .Params.recipe.gantt }}
+    <li
+      data-id="{{- $item.id -}}"
+      data-desc="{{- $item.desc -}}"
+      data-start="{{- $item.start -}}"
+      data-duration="{{- $item.duration -}}"
+      {{- if $item.duration }}
+      data-duration-seconds="{{- (time.ParseDuration $item.duration).Seconds -}}"
+      {{- else }}
+      data-duration-seconds=""
+      {{- end }}
+      data-end="{{- $item.end -}}"
+      data-depends-on="{{- $item.dependsOn -}}"
+      ></li>
+    {{- end}}
+  </ol>
   {{- end}}
 
   <hr />

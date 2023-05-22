@@ -1,21 +1,16 @@
-let gantt = [];
+const gantt = [];
 
-gantt.push({
-  id: '{{ $item.id }}',
-  desc: '{{ $item.desc }}',
-  start: '{{ $item.start }}',
-  duration: '{{ (time.ParseDuration $item.duration).Seconds }}',
-  dependsOn: '{{ $item.dependsOn }}',
-});
+const ganttDomData = document.getElementById('gantt-data');
+for (const item of ganttDomData.children) {
+  gantt.push({
+    id: item.dataset.id,
+    desc: item.dataset.desc,
+    start: item.dataset.start,
+    duration: item.dataset.duration,
+    durationSeconds: item.dataset.durationSeconds,
+    end: item.dataset.end,
+    dependsOn: item.dataset.dependsOn,
+  });
+}
 
 console.log(gantt);
-
-// HERE
-// In: themes/PaperMod/layouts/partials/head.html
-// This may not be the best idea:
-// | resources.ExecuteAsTemplate "assets/js/recipes.js" .
-// Since this doesn't get auto rebuilt during dev `hugo server`
-// Might be better to just populate dummy (invisible) HTML elements
-// and then have JS get the info from there.
-//
-// The JS IDE parsing would also be less confused.
