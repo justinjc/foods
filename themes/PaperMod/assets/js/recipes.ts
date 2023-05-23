@@ -1,4 +1,4 @@
-type GanttItem = {
+type GanttInputItem = {
   id: string;
   desc: string;
   start: string;
@@ -7,13 +7,21 @@ type GanttItem = {
   dependsOn: string;
 };
 
-class GanttData {}
+type GanttItem = {
+  start: number;
+  durationSeconds: number;
+  item: GanttInputItem;
+};
+
+type GanttRow = GanttItem[];
+
+type GanttData = GanttRow[];
 
 const durationRegex =
   /^\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
 
-function getGanttData(): GanttItem[] {
-  const ganttData: GanttItem[] = [];
+function getGanttData(): GanttInputItem[] {
+  const ganttData: GanttInputItem[] = [];
 
   const ganttDomData = document.getElementById('gantt-data');
   if (ganttDomData === null) {
@@ -41,26 +49,12 @@ function formatGantt() {
     return;
   }
 
-  const ganttData = getGanttData();
+  const ganttData: GanttInputItem[] = getGanttData();
   if (ganttData.length === 0) {
     return;
   }
 
-  /*
-  [
-    [
-      {
-        start: 0
-        item: item
-      },
-      {
-        start: 10
-        item: item
-      }
-    ]
-  ]
-  */
-  const gantt = [];
+  const gantt: GanttData = [];
 
   let iters = 0;
   while (ganttData.length > 0) {
@@ -70,8 +64,15 @@ function formatGantt() {
     }
     iters++;
 
-    const placed = [];
-    for (let i = ganttData.length - 1; i >= 0; i--) {}
+    const placedIndexes: number[] = [];
+    for (let i = ganttData.length - 1; i >= 0; i--) {
+      // HERE pick items off to be placed. If placed, add to placedIndexes
+    }
+
+    // Remove placed items.
+    for (const placedIndex of placedIndexes) {
+      ganttData.splice(placedIndex, 1);
+    }
   }
 
   console.log(ganttData);
