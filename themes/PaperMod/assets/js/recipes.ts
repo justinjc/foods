@@ -1,22 +1,34 @@
+type GanttItem = {
+  id: string;
+  desc: string;
+  start: string;
+  duration: string;
+  end: string;
+  dependsOn: string;
+};
+
+class GanttData {}
+
 const durationRegex =
   /^\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
 
-function getGanttData() {
-  const ganttData = [];
+function getGanttData(): GanttItem[] {
+  const ganttData: GanttItem[] = [];
 
   const ganttDomData = document.getElementById('gantt-data');
   if (ganttDomData === null) {
     return ganttData;
   }
 
-  for (const item of ganttDomData.children) {
+  for (let element of ganttDomData.children) {
+    let item = element as HTMLElement;
     ganttData.push({
-      id: item.dataset.id,
-      desc: item.dataset.desc,
-      start: item.dataset.start,
-      duration: item.dataset.duration,
-      end: item.dataset.end,
-      dependsOn: item.dataset.dependsOn,
+      id: item.dataset.id ?? '',
+      desc: item.dataset.desc ?? '',
+      start: item.dataset.start ?? '',
+      duration: item.dataset.duration ?? '',
+      end: item.dataset.end ?? '',
+      dependsOn: item.dataset.dependsOn ?? '',
     });
   }
 
@@ -65,18 +77,18 @@ function formatGantt() {
   console.log(ganttData);
 }
 
-function appendGannt() {
-  for (const step of ganttData) {
-    const ganttItem = document.createElement('div');
-    ganttItem.classList.add('gantt-item');
-    ganttItem.innerHTML = step.id;
-    // TODO set these correctly
-    let translateX = 40;
-    let translateY = 0;
-    ganttItem.style.transform = `translate(${translateX}px, ${translateY}px)`;
-    ganttDiv.appendChild(ganttItem);
-  }
-}
+// function appendGannt() {
+//   for (const step of ganttData) {
+//     const ganttItem = document.createElement('div');
+//     ganttItem.classList.add('gantt-item');
+//     ganttItem.innerHTML = step.id;
+//     // TODO set these correctly
+//     let translateX = 40;
+//     let translateY = 0;
+//     ganttItem.style.transform = `translate(${translateX}px, ${translateY}px)`;
+//     ganttDiv.appendChild(ganttItem);
+//   }
+// }
 
 formatGantt();
 

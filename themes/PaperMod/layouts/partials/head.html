@@ -76,10 +76,8 @@
 
 {{- /* Recipes */}}
 {{- if (eq .Layout `recipes`) -}}
-{{- $recipes_js := resources.Get "js/recipes.js" | resources.Minify | fingerprint }}
+{{- $recipes_js := resources.Get "js/recipes.ts" | js.Build "assets/js/recipes.js" | resources.Minify | fingerprint }}
 <script defer crossorigin="anonymous" src="{{ $recipes_js.RelPermalink }}" integrity="{{ $recipes_js.Data.Integrity }}"></script>
-{{- $hehe_ts := resources.Get "js/hehe.ts" | js.Build "assets/js/hehe.js" | resources.Minify | fingerprint }}
-<script defer crossorigin="anonymous" src="{{ $hehe_ts.RelPermalink }}" integrity="{{ $hehe_ts.Data.Integrity }}"></script>
 {{- end -}}
 
 
