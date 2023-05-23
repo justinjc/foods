@@ -34,7 +34,33 @@ function formatGantt() {
     return;
   }
 
+  /*
+  [
+    [
+      {
+        start: 0
+        item: item
+      },
+      {
+        start: 10
+        item: item
+      }
+    ]
+  ]
+  */
   const gantt = [];
+
+  let iters = 0;
+  while (ganttData.length > 0) {
+    if (iters > 1000) {
+      console.log('too many iters');
+      return;
+    }
+    iters++;
+
+    const placed = [];
+    for (let i = ganttData.length - 1; i >= 0; i--) {}
+  }
 
   console.log(ganttData);
 }
