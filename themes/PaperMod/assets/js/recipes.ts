@@ -65,9 +65,14 @@ function formatGantt() {
     iters++;
 
     const placedIndexes: number[] = [];
-    for (let i = ganttData.length - 1; i >= 0; i--) {
+    // Iterate in order because people would tend to add the instructions in
+    // the correct order.
+    for (let i = 0; i < ganttData.length; i++) {
       // HERE pick items off to be placed. If placed, add to placedIndexes
     }
+
+    // Reverse sorted order so splicing is simpler.
+    placedIndexes.sort().reverse();
 
     // Remove placed items.
     for (const placedIndex of placedIndexes) {
