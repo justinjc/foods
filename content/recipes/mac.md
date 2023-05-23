@@ -4,6 +4,7 @@ date: 2023-05-21T12:30:18-04:00
 draft: false
 layout: recipes
 recipe:
+  servings: 6
   ingredients:
     - name: thingy
       num: 1 lb
@@ -11,35 +12,59 @@ recipe:
       num: 2.5 cups
   gantt:
     - id: preheat
-      desc: preheat oven
+      desc:
       start:
-      duration: 1m
-      end:
+      duration: 45m
+      end: bake.start
       dependsOn:
     - id: bacon
-      desc: cook bacon
-      start:
-      duration:
-      end:
-      dependsOn:
-    - id: shrimp
-      desc: cook shrimp
-      start:
-      duration: 5s
-      end:
-      dependsOn:
-    - id: water
-      desc: boil water
+      desc:
       start:
       duration: 15m
       end:
       dependsOn:
-    - id: pasta
-      desc: boil pasta
+    - id: shrimp
+      desc:
       start:
       duration: 5m
       end:
+      dependsOn: bacon
+    - id: breadcrumbs
+      desc:
+      start:
+      duration: 10m
+      end:
+      dependsOn: shrimp
+    - id: cheese
+      desc:
+      start:
+      duration: 5m
+      end:
+      dependsOn: breadcrumbs
+    - id: water
+      desc:
+      start:
+      duration: 15m
+      end: pasta.start
       dependsOn:
+    - id: pasta
+      desc:
+      start:
+      duration: 4m
+      end: cheese.end
+      dependsOn:
+    - id: combine
+      desc:
+      start:
+      duration: 5m
+      end:
+      dependsOn: cheese pasta
+    - id: bake
+      desc:
+      start:
+      duration: 20m
+      end:
+      dependsOn: cheese pasta
 ---
 
 Beans

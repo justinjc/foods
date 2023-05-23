@@ -51,11 +51,6 @@
       data-desc="{{- $item.desc -}}"
       data-start="{{- $item.start -}}"
       data-duration="{{- $item.duration -}}"
-      {{- if $item.duration }}
-      data-duration-seconds="{{- (time.ParseDuration $item.duration).Seconds -}}"
-      {{- else }}
-      data-duration-seconds=""
-      {{- end }}
       data-end="{{- $item.end -}}"
       data-depends-on="{{- $item.dependsOn -}}"
       ></li>
