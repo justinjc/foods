@@ -31,8 +31,8 @@ function getGanttData(): GanttInputItem[] {
     return ganttData;
   }
 
-  for (let element of ganttDomData.children) {
-    let item = element as HTMLElement;
+  for (const element of ganttDomData.children) {
+    const item = element as HTMLElement;
     ganttData.push({
       id: item.dataset.id ?? '',
       desc: item.dataset.desc ?? '',
@@ -81,7 +81,7 @@ function formatGantt() {
       if (!endMatch || !endMatch.groups) {
       }
 
-      let placed = false;
+      const placed = false;
       if (placed) {
         placedIndexes.push(idx);
         placedItems.set(item.id, item);
