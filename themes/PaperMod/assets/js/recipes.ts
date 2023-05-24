@@ -14,6 +14,11 @@ enum Operator {
   Minus = '-',
 }
 
+enum ParseStatus {
+  Unresolved = 'unresolved',
+  NoInput = 'noinput',
+}
+
 type StartEndRegexGroups = {
   // e.g. bacon.start + 2m30s
   id?: string;
@@ -52,9 +57,9 @@ class GanttInputItem {
 
   // This assumes valid input.
   tryResolve(resolvedItems?: Map<string, GanttInputItem>): boolean {
-    const startParse = parseStartEnd(this.startInput);
-    const endParse = parseStartEnd(this.endInput);
-    const dependsOnParse = parseDependsOn(this.dependsOn);
+    const startParse = parseStartEnd(this.startInput, resolvedItems);
+    const endParse = parseStartEnd(this.endInput, resolvedItems);
+    const dependsOnParse = parseDependsOn(this.dependsOn, resolvedItems);
     const durationParse = parseDuration(this.durationInput);
 
     // HERE
@@ -78,58 +83,6 @@ class GanttInputItem {
   get end(): number {
     return this.startSeconds + this.duration;
   }
-}
-
-function parseStartEnd(
-  input?: string,
-  resolvedItems?: Map<string, GanttInputItem>,
-): number | undefined {
-  const groups = input?.match(startEndRegex)?.groups;
-  if (groups) {
-    let ret = 0;
-    if (groups.id) {
-      if (!resolvedItems?.get(groups.id)) {
-        return;
-      }
-
-      if (groups.border == IDBorder.Start) {
-        ret = resolvedItems?.get(groups.id)?.start ?? 0;
-      }
-      if (groups.border == IDBorder.End) {
-        ret = resolvedItems?.get(groups.id)?.end ?? 0;
-      }
-    }
-    const durationGroups = groups as DurationGroups;
-    const durationSeconds = parseDurationGroups(durationGroups);
-    if (groups.operator == Operator.Minus) {
-      ret -= durationSeconds;
-    } else {
-      ret += durationSeconds;
-    }
-
-    return ret;
-  }
-}
-
-function parseDependsOn(
-  input?: string,
-  resolvedItems?: Map<string, GanttInputItem>,
-): number | undefined {
-  if (!input) {
-    return;
-  }
-
-  let latest = 0;
-  const ids = input.split(/\s+/);
-  for (const id of ids) {
-    const item = resolvedItems?.get(id);
-    if (!item) {
-      return;
-    }
-    latest = Math.max(latest, item.end);
-  }
-
-  return latest;
 }
 
 type InputDataset = {
@@ -242,16 +195,66 @@ function formatGantt() {
 
 formatGantt();
 
-function parseDuration(str?: string): number {
-  if (!str) {
-    return 0;
+function parseStartEnd(
+  input?: string,
+  resolvedItems?: Map<string, GanttInputItem>,
+): number | ParseStatus {
+  const groups = input?.match(startEndRegex)?.groups;
+  if (!groups) {
+    return ParseStatus.NoInput;
   }
-  const match = str.match(durationRegex);
-  if (!match || !match.groups) {
-    return 0;
+  let ret = 0;
+  if (groups.id) {
+    if (!resolvedItems?.get(groups.id)) {
+      return ParseStatus.Unresolved;
+    }
+
+    if (groups.border == IDBorder.Start) {
+      ret = resolvedItems.get(groups.id)?.start ?? 0;
+    }
+    if (groups.border == IDBorder.End) {
+      ret = resolvedItems.get(groups.id)?.end ?? 0;
+    }
+  }
+  const durationGroups = groups as DurationGroups;
+  const durationSeconds = parseDurationGroups(durationGroups);
+  if (groups.operator == Operator.Minus) {
+    ret -= durationSeconds;
+  } else {
+    ret += durationSeconds;
   }
 
-  const groups = match.groups as DurationGroups;
+  return ret;
+}
+
+function parseDependsOn(
+  input?: string,
+  resolvedItems?: Map<string, GanttInputItem>,
+): number | ParseStatus {
+  if (!input) {
+    return ParseStatus.NoInput;
+  }
+
+  let latest = 0;
+  const ids = input.split(/\s+/);
+  for (const id of ids) {
+    const item = resolvedItems?.get(id);
+    if (!item) {
+      return ParseStatus.NoInput;
+    }
+    latest = Math.max(latest, item.end);
+  }
+
+  return latest;
+}
+
+function parseDuration(str?: string): number | ParseStatus {
+  let groups = str?.match(durationRegex)?.groups;
+  if (!groups) {
+    return ParseStatus.NoInput;
+  }
+
+  groups = groups as DurationGroups;
 
   return parseDurationGroups(groups);
 }
