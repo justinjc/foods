@@ -20,6 +20,9 @@ type GanttData = GanttRow[];
 const durationRegex =
   /^\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
 
+const startEndRegex =
+  /^\s*(?:(?<id>[a-zA-Z]+)\.(?<border>start|end))?\s*(?<operator>\+|-)?\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
+
 function getGanttData(): GanttInputItem[] {
   const ganttData: GanttInputItem[] = [];
 
@@ -65,10 +68,24 @@ function formatGantt() {
     iters++;
 
     const placedIndexes: number[] = [];
+    const placedItems = new Map<string, GanttInputItem>();
     // Iterate in order because people would tend to add the instructions in
     // the correct order.
-    for (let i = 0; i < ganttData.length; i++) {
+    for (const [idx, item] of ganttData.entries()) {
       // HERE pick items off to be placed. If placed, add to placedIndexes
+
+      const startMatch = item.start.match(startEndRegex);
+      if (!startMatch || !startMatch.groups) {
+      }
+      const endMatch = item.end.match(startEndRegex);
+      if (!endMatch || !endMatch.groups) {
+      }
+
+      let placed = false;
+      if (placed) {
+        placedIndexes.push(idx);
+        placedItems.set(item.id, item);
+      }
     }
 
     // Reverse sorted order so splicing is simpler.
@@ -98,9 +115,9 @@ function formatGantt() {
 
 formatGantt();
 
-function durationToSeconds(str) {
+function durationToSeconds(str: string) {
   const match = str.match(durationRegex);
-  if (match === null) {
+  if (!match || !match.groups) {
     return 0;
   }
 
