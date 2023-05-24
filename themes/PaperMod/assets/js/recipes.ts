@@ -31,16 +31,16 @@ type StartEndRegexGroups = {
 };
 
 class GanttInputItem {
-  id: string;
-  desc?: string;
-  startInput?: string;
-  endInput?: string;
-  durationInput?: string;
-  dependsOn?: string;
+  readonly id: string;
+  readonly desc?: string;
+  private startInput?: string;
+  private endInput?: string;
+  private durationInput?: string;
+  private dependsOn?: string;
 
-  resolved = false;
-  resolvedStartSeconds = 0;
-  resolvedDurationSeconds = 0;
+  private resolved = false;
+  private resolvedStartSeconds = 0;
+  private resolvedDurationSeconds = 0;
 
   constructor(itemDataset: InputDataset) {
     this.id = itemDataset.id;
@@ -75,13 +75,20 @@ class GanttInputItem {
       this.resolvedStartSeconds = startParse;
     }
     if (typeof dependsOnParse === 'number') {
+      // dependsOn overrides start.
       this.resolvedStartSeconds = dependsOnParse;
     }
     if (typeof durationParse === 'number') {
       this.resolvedDurationSeconds = durationParse;
     }
     if (typeof endParse === 'number') {
-      this.resolvedDurationSeconds = endParse - this.resolvedStartSeconds;
+      if (this.duration > 0) {
+        // Duration specified, so start = end - duration
+        this.resolvedStartSeconds = endParse - this.duration;
+      } else {
+        // Otherwise, so duration = end - start
+        this.resolvedDurationSeconds = endParse - this.start;
+      }
     }
     this.resolved = true;
     return true;
@@ -96,7 +103,7 @@ class GanttInputItem {
   }
 
   get duration(): number {
-    return this.duration;
+    return this.resolvedDurationSeconds;
   }
 
   get end(): number {
@@ -158,26 +165,23 @@ function formatGantt() {
 
   const gantt: GanttData = [];
 
-  let iters = 0;
+  const placedItems = new Map<string, GanttInputItem>();
   while (ganttData.length > 0) {
-    if (iters > 1000) {
-      console.log('too many iters');
-      return;
-    }
-    iters++;
-
     const placedIndexes: number[] = [];
-    const placedItems = new Map<string, GanttInputItem>();
     // Iterate in order because people would tend to add the instructions in
     // the correct order.
     for (const [idx, item] of ganttData.entries()) {
-      // TODO pick items off to be placed. If placed, add to placedIndexes
-
-      const placed = false;
+      const placed = item.tryResolve(placedItems);
       if (placed) {
         placedIndexes.push(idx);
         placedItems.set(item.id, item);
       }
+    }
+
+    if (placedIndexes.length === 0) {
+      // After going through all gantt data, we must have made some progress,
+      // otherwise we're stuck.
+      throw new Error('unable to resolve items');
     }
 
     // Reverse sorted order so splicing is simpler.
@@ -189,7 +193,11 @@ function formatGantt() {
     }
   }
 
-  console.log(ganttData);
+  for (const [k, v] of placedItems) {
+    console.log(`${k}: ${v.start}-${v.end}`);
+    // console.log(v);
+  }
+  // TODO pick items off to be placed. If placed, add to placedIndexes
 }
 
 // function appendGannt() {
@@ -211,7 +219,11 @@ function parseStartEnd(
   input?: string,
   resolvedItems?: Map<string, GanttInputItem>,
 ): number | ParseStatus {
-  const groups = input?.match(startEndRegex)?.groups;
+  if (!input) {
+    return ParseStatus.NoInput;
+  }
+
+  const groups = input?.match(startEndRegex)?.groups as StartEndRegexGroups;
   if (!groups) {
     return ParseStatus.NoInput;
   }

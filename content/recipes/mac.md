@@ -64,7 +64,7 @@ recipe:
       start:
       duration: 20m
       end:
-      dependsOn: cheese pasta
+      dependsOn: preheat cheese pasta
 ---
 
 Beans
