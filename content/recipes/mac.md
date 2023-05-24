@@ -15,7 +15,7 @@ recipe:
       desc:
       start:
       duration: 45m
-      end: bake.start
+      end:
       dependsOn:
     - id: bacon
       desc:

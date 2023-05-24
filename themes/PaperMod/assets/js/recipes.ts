@@ -1,10 +1,144 @@
-type GanttInputItem = {
+const durationRegex =
+  /^\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
+
+const startEndRegex =
+  /^\s*(?:(?<id>[a-zA-Z]+)\.(?<border>start|end))?\s*(?<operator>\+|-)?\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
+
+enum IDBorder {
+  Start = 'start',
+  End = 'end',
+}
+
+enum Operator {
+  Plus = '+',
+  Minus = '-',
+}
+
+type StartEndRegexGroups = {
+  // e.g. bacon.start + 2m30s
+  id?: string;
+  border?: IDBorder;
+  operator?: string;
+  days?: string;
+  hours?: string;
+  minutes?: string;
+  seconds?: string;
+};
+
+class GanttInputItem {
   id: string;
-  desc: string;
-  start: string;
-  duration: string;
-  end: string;
-  dependsOn: string;
+  desc?: string;
+  startInput?: string;
+  endInput?: string;
+  durationInput?: string;
+  dependsOn?: string;
+
+  resolved = false;
+  startSeconds = -1;
+  durationSeconds = 0;
+
+  constructor(itemDataset: InputDataset) {
+    this.id = itemDataset.id;
+    this.desc = itemDataset.desc;
+    this.startInput = itemDataset.start;
+    this.endInput = itemDataset.end;
+    this.dependsOn = itemDataset.dependsOn;
+    this.durationInput = itemDataset.duration;
+  }
+
+  static validInput(itemDataset: InputDataset): boolean {
+    return !!itemDataset.id && (!!itemDataset.duration || !!itemDataset.end);
+  }
+
+  // This assumes valid input.
+  tryResolve(resolvedItems?: Map<string, GanttInputItem>): boolean {
+    const startParse = parseStartEnd(this.startInput);
+    const endParse = parseStartEnd(this.endInput);
+    const dependsOnParse = parseDependsOn(this.dependsOn);
+    const durationParse = parseDuration(this.durationInput);
+
+    // HERE
+
+    this.resolved = true;
+    return true;
+  }
+
+  get isResolved(): boolean {
+    return this.resolved;
+  }
+
+  get start(): number {
+    return this.startSeconds;
+  }
+
+  get duration(): number {
+    return this.duration;
+  }
+
+  get end(): number {
+    return this.startSeconds + this.duration;
+  }
+}
+
+function parseStartEnd(
+  input?: string,
+  resolvedItems?: Map<string, GanttInputItem>,
+): number | undefined {
+  const groups = input?.match(startEndRegex)?.groups;
+  if (groups) {
+    let ret = 0;
+    if (groups.id) {
+      if (!resolvedItems?.get(groups.id)) {
+        return;
+      }
+
+      if (groups.border == IDBorder.Start) {
+        ret = resolvedItems?.get(groups.id)?.start ?? 0;
+      }
+      if (groups.border == IDBorder.End) {
+        ret = resolvedItems?.get(groups.id)?.end ?? 0;
+      }
+    }
+    const durationGroups = groups as DurationGroups;
+    const durationSeconds = parseDurationGroups(durationGroups);
+    if (groups.operator == Operator.Minus) {
+      ret -= durationSeconds;
+    } else {
+      ret += durationSeconds;
+    }
+
+    return ret;
+  }
+}
+
+function parseDependsOn(
+  input?: string,
+  resolvedItems?: Map<string, GanttInputItem>,
+): number | undefined {
+  if (!input) {
+    return;
+  }
+
+  let latest = 0;
+  const ids = input.split(/\s+/);
+  for (const id of ids) {
+    const item = resolvedItems?.get(id);
+    if (!item) {
+      return;
+    }
+    latest = Math.max(latest, item.end);
+  }
+
+  return latest;
+}
+
+type InputDataset = {
+  id: string;
+  desc?: string;
+  start?: string;
+  end?: string;
+  dependsOn?: string;
+  duration?: string;
 };
 
 type GanttItem = {
@@ -17,30 +151,30 @@ type GanttRow = GanttItem[];
 
 type GanttData = GanttRow[];
 
-const durationRegex =
-  /^\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
-
-const startEndRegex =
-  /^\s*(?:(?<id>[a-zA-Z]+)\.(?<border>start|end))?\s*(?<operator>\+|-)?\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
-
 function getGanttData(): GanttInputItem[] {
   const ganttData: GanttInputItem[] = [];
 
   const ganttDomData = document.getElementById('gantt-data');
   if (ganttDomData === null) {
-    return ganttData;
+    throw new Error('gantt-data element not found');
   }
 
   for (const element of ganttDomData.children) {
     const item = element as HTMLElement;
-    ganttData.push({
-      id: item.dataset.id ?? '',
-      desc: item.dataset.desc ?? '',
-      start: item.dataset.start ?? '',
-      duration: item.dataset.duration ?? '',
-      end: item.dataset.end ?? '',
-      dependsOn: item.dataset.dependsOn ?? '',
-    });
+    const itemDataset = item.dataset as InputDataset;
+
+    if (!GanttInputItem.validInput(itemDataset)) {
+      throw new Error(`invalid gantt item input id: ${itemDataset.id}`);
+    }
+
+    // ganttData.push({
+    //   id: item.dataset.id ?? '',
+    //   desc: item.dataset.desc ?? '',
+    //   start: item.dataset.start ?? '',
+    //   duration: item.dataset.duration ?? '',
+    //   end: item.dataset.end ?? '',
+    //   dependsOn: item.dataset.dependsOn ?? '',
+    // });
   }
 
   return ganttData;
@@ -72,14 +206,7 @@ function formatGantt() {
     // Iterate in order because people would tend to add the instructions in
     // the correct order.
     for (const [idx, item] of ganttData.entries()) {
-      // HERE pick items off to be placed. If placed, add to placedIndexes
-
-      const startMatch = item.start.match(startEndRegex);
-      if (!startMatch || !startMatch.groups) {
-      }
-      const endMatch = item.end.match(startEndRegex);
-      if (!endMatch || !endMatch.groups) {
-      }
+      // TODO pick items off to be placed. If placed, add to placedIndexes
 
       const placed = false;
       if (placed) {
@@ -115,17 +242,32 @@ function formatGantt() {
 
 formatGantt();
 
-function durationToSeconds(str: string) {
+function parseDuration(str?: string): number {
+  if (!str) {
+    return 0;
+  }
   const match = str.match(durationRegex);
   if (!match || !match.groups) {
     return 0;
   }
 
+  const groups = match.groups as DurationGroups;
+
+  return parseDurationGroups(groups);
+}
+
+type DurationGroups = {
+  days?: string;
+  hours?: string;
+  minutes?: string;
+  seconds?: string;
+};
+
+function parseDurationGroups(groups: DurationGroups): number {
   let seconds = 0;
-  if (match.groups.days)
-    seconds += parseInt(match.groups.days, 10) * 24 * 60 * 60;
-  if (match.groups.hours) seconds += parseInt(match.groups.hours, 10) * 60 * 60;
-  if (match.groups.minutes) seconds += parseInt(match.groups.minutes, 10) * 60;
-  if (match.groups.seconds) seconds += parseInt(match.groups.seconds, 10);
+  if (groups.days) seconds += parseInt(groups.days, 10) * 24 * 60 * 60;
+  if (groups.hours) seconds += parseInt(groups.hours, 10) * 60 * 60;
+  if (groups.minutes) seconds += parseInt(groups.minutes, 10) * 60;
+  if (groups.seconds) seconds += parseInt(groups.seconds, 10);
   return seconds;
 }
