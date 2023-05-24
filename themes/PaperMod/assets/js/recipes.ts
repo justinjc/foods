@@ -39,8 +39,8 @@ class GanttInputItem {
   dependsOn?: string;
 
   resolved = false;
-  startSeconds = -1;
-  durationSeconds = 0;
+  resolvedStartSeconds = 0;
+  resolvedDurationSeconds = 0;
 
   constructor(itemDataset: InputDataset) {
     this.id = itemDataset.id;
@@ -62,8 +62,27 @@ class GanttInputItem {
     const dependsOnParse = parseDependsOn(this.dependsOn, resolvedItems);
     const durationParse = parseDuration(this.durationInput);
 
-    // HERE
+    if (
+      startParse === ParseStatus.Unresolved ||
+      endParse === ParseStatus.Unresolved ||
+      dependsOnParse === ParseStatus.Unresolved
+    ) {
+      // There are IDs mentioned that haven't been resolved; can return immediately.
+      return false;
+    }
 
+    if (typeof startParse === 'number') {
+      this.resolvedStartSeconds = startParse;
+    }
+    if (typeof dependsOnParse === 'number') {
+      this.resolvedStartSeconds = dependsOnParse;
+    }
+    if (typeof durationParse === 'number') {
+      this.resolvedDurationSeconds = durationParse;
+    }
+    if (typeof endParse === 'number') {
+      this.resolvedDurationSeconds = endParse - this.resolvedStartSeconds;
+    }
     this.resolved = true;
     return true;
   }
@@ -73,7 +92,7 @@ class GanttInputItem {
   }
 
   get start(): number {
-    return this.startSeconds;
+    return this.resolvedStartSeconds;
   }
 
   get duration(): number {
@@ -81,7 +100,7 @@ class GanttInputItem {
   }
 
   get end(): number {
-    return this.startSeconds + this.duration;
+    return this.resolvedStartSeconds + this.duration;
   }
 }
 
@@ -120,14 +139,7 @@ function getGanttData(): GanttInputItem[] {
       throw new Error(`invalid gantt item input id: ${itemDataset.id}`);
     }
 
-    // ganttData.push({
-    //   id: item.dataset.id ?? '',
-    //   desc: item.dataset.desc ?? '',
-    //   start: item.dataset.start ?? '',
-    //   duration: item.dataset.duration ?? '',
-    //   end: item.dataset.end ?? '',
-    //   dependsOn: item.dataset.dependsOn ?? '',
-    // });
+    ganttData.push(new GanttInputItem(itemDataset));
   }
 
   return ganttData;
@@ -240,7 +252,7 @@ function parseDependsOn(
   for (const id of ids) {
     const item = resolvedItems?.get(id);
     if (!item) {
-      return ParseStatus.NoInput;
+      return ParseStatus.Unresolved;
     }
     latest = Math.max(latest, item.end);
   }
