@@ -216,6 +216,7 @@ function formatGantt() {
     return;
   }
 
+  const gantt = new GanttData();
   const placedItems = new Map<string, GanttItem>();
   while (ganttInputItems.length > 0) {
     const placedIndexes: number[] = [];
@@ -227,7 +228,7 @@ function formatGantt() {
         placedIndexes.push(idx);
         placedItems.set(item.id, item);
 
-        // TODO place in a GanttData
+        gantt.place(item);
       }
     }
 
@@ -246,9 +247,7 @@ function formatGantt() {
     }
   }
 
-  for (const [k, v] of placedItems) {
-    console.log(`${k}: ${v.start}-${v.end}`);
-  }
+  console.log(gantt.toString());
 }
 
 // function appendGannt() {

@@ -38,7 +38,7 @@ recipe:
     - id: cheese
       desc:
       start:
-      duration: 5m
+      duration: 30m
       end:
       dependsOn: breadcrumbs
     - id: water
