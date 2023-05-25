@@ -30,7 +30,7 @@ type StartEndRegexGroups = {
   seconds?: string;
 };
 
-class GanttInputItem {
+class GanttItem {
   readonly id: string;
   readonly desc?: string;
   private startInput?: string;
@@ -56,7 +56,7 @@ class GanttInputItem {
   }
 
   // This assumes valid input.
-  tryResolve(resolvedItems?: Map<string, GanttInputItem>): boolean {
+  tryResolve(resolvedItems?: Map<string, GanttItem>): boolean {
     const startParse = parseStartEnd(this.startInput, resolvedItems);
     const endParse = parseStartEnd(this.endInput, resolvedItems);
     const dependsOnParse = parseDependsOn(this.dependsOn, resolvedItems);
@@ -120,18 +120,51 @@ type InputDataset = {
   duration?: string;
 };
 
-type GanttItem = {
-  start: number;
-  durationSeconds: number;
-  item: GanttInputItem;
-};
+class GanttRow {
+  items: GanttItem[] = [];
 
-type GanttRow = GanttItem[];
+  place(newItem: GanttItem): boolean {
+    if (this.items.length === 0) {
+      // If empty row, put item in.
+      this.items.push(newItem);
+      return true;
+    }
 
-type GanttData = GanttRow[];
+    if (newItem.end <= this.items[0].start) {
+      // Item is before first item; insert as first item.
+      this.items.splice(0, 0, newItem);
+      return true;
+    }
 
-function getGanttData(): GanttInputItem[] {
-  const ganttData: GanttInputItem[] = [];
+    if (newItem.start >= this.items[this.items.length - 1].end) {
+      // Item is after last item; push as last item.
+      this.items.push(newItem);
+      return true;
+    }
+
+    let prevItem = this.items[0];
+    for (const [idx, item] of this.items.slice(1).entries()) {
+      if (newItem.start >= prevItem.end && newItem.end <= item.start) {
+        this.items.splice(idx, 0, item);
+        return true;
+      }
+      prevItem = item;
+    }
+
+    return false;
+  }
+}
+
+class GanttData {
+  rows: GanttRow[];
+
+  place(item: GanttItem) {
+    // HERE
+  }
+}
+
+function getGanttData(): GanttItem[] {
+  const ganttData: GanttItem[] = [];
 
   const ganttDomData = document.getElementById('gantt-data');
   if (ganttDomData === null) {
@@ -142,11 +175,11 @@ function getGanttData(): GanttInputItem[] {
     const item = element as HTMLElement;
     const itemDataset = item.dataset as InputDataset;
 
-    if (!GanttInputItem.validInput(itemDataset)) {
+    if (!GanttItem.validInput(itemDataset)) {
       throw new Error(`invalid gantt item input id: ${itemDataset.id}`);
     }
 
-    ganttData.push(new GanttInputItem(itemDataset));
+    ganttData.push(new GanttItem(itemDataset));
   }
 
   return ganttData;
@@ -158,23 +191,23 @@ function formatGantt() {
     return;
   }
 
-  const ganttData: GanttInputItem[] = getGanttData();
-  if (ganttData.length === 0) {
+  const ganttInputItems: GanttItem[] = getGanttData();
+  if (ganttInputItems.length === 0) {
     return;
   }
 
-  const gantt: GanttData = [];
-
-  const placedItems = new Map<string, GanttInputItem>();
-  while (ganttData.length > 0) {
+  const placedItems = new Map<string, GanttItem>();
+  while (ganttInputItems.length > 0) {
     const placedIndexes: number[] = [];
     // Iterate in order because people would tend to add the instructions in
     // the correct order.
-    for (const [idx, item] of ganttData.entries()) {
+    for (const [idx, item] of ganttInputItems.entries()) {
       const placed = item.tryResolve(placedItems);
       if (placed) {
         placedIndexes.push(idx);
         placedItems.set(item.id, item);
+
+        // TODO place in a GanttData
       }
     }
 
@@ -189,15 +222,13 @@ function formatGantt() {
 
     // Remove placed items.
     for (const placedIndex of placedIndexes) {
-      ganttData.splice(placedIndex, 1);
+      ganttInputItems.splice(placedIndex, 1);
     }
   }
 
   for (const [k, v] of placedItems) {
     console.log(`${k}: ${v.start}-${v.end}`);
-    // console.log(v);
   }
-  // TODO pick items off to be placed. If placed, add to placedIndexes
 }
 
 // function appendGannt() {
@@ -217,7 +248,7 @@ formatGantt();
 
 function parseStartEnd(
   input?: string,
-  resolvedItems?: Map<string, GanttInputItem>,
+  resolvedItems?: Map<string, GanttItem>,
 ): number | ParseStatus {
   if (!input) {
     return ParseStatus.NoInput;
@@ -253,7 +284,7 @@ function parseStartEnd(
 
 function parseDependsOn(
   input?: string,
-  resolvedItems?: Map<string, GanttInputItem>,
+  resolvedItems?: Map<string, GanttItem>,
 ): number | ParseStatus {
   if (!input) {
     return ParseStatus.NoInput;
