@@ -109,6 +109,10 @@ class GanttItem {
   get end(): number {
     return this.resolvedStartSeconds + this.duration;
   }
+
+  toString(): string {
+    return `[${this.id}:${this.start}-${this.end}]`;
+  }
 }
 
 type InputDataset = {
@@ -153,13 +157,29 @@ class GanttRow {
 
     return false;
   }
+
+  toString(): string {
+    return this.items.join('');
+  }
 }
 
 class GanttData {
-  rows: GanttRow[];
+  rows: GanttRow[] = [];
 
   place(item: GanttItem) {
-    // HERE
+    for (const row of this.rows) {
+      if (row.place(item)) {
+        return;
+      }
+    }
+    // Item doesn't fit in any row, add a new one.
+    const newRow = new GanttRow();
+    newRow.place(item);
+    this.rows.push(newRow);
+  }
+
+  toString(): string {
+    return this.rows.join('\n');
   }
 }
 
