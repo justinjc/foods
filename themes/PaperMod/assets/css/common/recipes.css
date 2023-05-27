@@ -1,6 +1,8 @@
 #gantt-container {
   padding: 10px 0;
   position: relative;
+  overflow-x: scroll;
+  overflow-y: visible;
 }
 
 .gantt-item {
@@ -10,4 +12,6 @@
   box-sizing: border-box;
   display: grid;
   place-items: center;
+  white-space: nowrap;
+  overflow: clip;
 }
