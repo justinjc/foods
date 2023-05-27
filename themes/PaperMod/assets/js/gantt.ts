@@ -84,7 +84,7 @@ export class GanttItem {
 
   private parseStartEnd(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>,
+    resolvedItems?: Map<string, GanttItem>
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -120,7 +120,7 @@ export class GanttItem {
 
   private parseDependsOn(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>,
+    resolvedItems?: Map<string, GanttItem>
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -194,6 +194,15 @@ export class GanttRow {
     return false;
   }
 
+  duration(): number {
+    const numItems = this.items.length;
+    if (numItems === 0) {
+      return 0;
+    }
+
+    return this.items[numItems - 1].end;
+  }
+
   toString(): string {
     return this.items.join('');
   }
@@ -249,6 +258,16 @@ export class GanttData {
     const newRow = new GanttRow();
     newRow.place(item);
     this.rows.push(newRow);
+  }
+
+  duration(): number {
+    let max = 0;
+
+    this.rows.forEach((row) => {
+      max = Math.max(max, row.duration());
+    });
+
+    return max;
   }
 
   toString(): string {

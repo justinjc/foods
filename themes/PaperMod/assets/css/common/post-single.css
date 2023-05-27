@@ -418,14 +418,13 @@ img.in-text {
 #gantt-container {
   padding: 10px 0;
   position: relative;
-  height: 100px;
 }
 
 .gantt-item {
   position: absolute;
-  height: 20px;
-  width: 70px;
   border: 1px solid #999;
   font-size: 0.75em;
   box-sizing: border-box;
+  display: grid;
+  place-items: center;
 }

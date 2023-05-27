@@ -14,7 +14,7 @@ recipe:
     - id: preheat
       desc:
       start:
-      duration: 45m
+      duration: 30m
       end:
       dependsOn:
     - id: bacon
@@ -64,7 +64,7 @@ recipe:
       start:
       duration: 20m
       end:
-      dependsOn: preheat cheese pasta
+      dependsOn: preheat combine
 ---
 
 Beans
