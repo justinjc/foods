@@ -222,6 +222,7 @@ export enum DisplayOrientation {
 
 export type DisplayOptions = {
   rowThickness: number;
+  rowGap: number;
   durationScale: number;
   orientation: DisplayOrientation;
 };

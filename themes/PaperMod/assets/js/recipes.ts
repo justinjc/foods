@@ -6,7 +6,6 @@ import {
 } from './gantt';
 
 const gd = new GanttData();
-console.log(gd.toString());
 
 const ganttDiv = document.getElementById('gantt-container')!;
 
@@ -21,7 +20,7 @@ function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
         h: displayOpts.rowThickness,
         w: item.duration * displayOpts.durationScale,
         x: item.start * displayOpts.durationScale,
-        y: rowIdx * displayOpts.rowThickness,
+        y: rowIdx * (displayOpts.rowThickness + displayOpts.rowGap),
       };
       switch (displayOpts.orientation) {
         case DisplayOrientation.Horizontal:
@@ -46,7 +45,8 @@ function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
 }
 
 const displayOpts: DisplayOptions = {
-  rowThickness: 20,
+  rowThickness: 30,
+  rowGap: 10,
   durationScale: ganttDiv.clientWidth / gd.duration(),
   orientation: DisplayOrientation.Horizontal,
 };
