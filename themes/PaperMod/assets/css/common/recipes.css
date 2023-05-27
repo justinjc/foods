@@ -6,7 +6,7 @@
 .gantt-item {
   position: absolute;
   background: var(--gantt-item-1-bg);
-  font-size: 0.75em;
+  font-size: 0.5em;
   box-sizing: border-box;
   display: grid;
   place-items: center;

@@ -15,7 +15,7 @@ function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
     for (const item of ganttRow.items) {
       const itemDiv = document.createElement('div');
       itemDiv.classList.add('gantt-item');
-      // itemDiv.innerHTML = item.id;
+      itemDiv.innerHTML = item.id;
 
       const pos: GanttItemPos = {
         h: displayOpts.rowThickness,
@@ -56,4 +56,10 @@ const displayOpts: DisplayOptions = {
 };
 
 appendGantt(gd, displayOpts);
-ganttDiv.style.height = `${gd.duration() * displayOpts.durationScale + 20}px`;
+
+let ganttContainerHeight =
+  gd.rows.length * (displayOpts.rowThickness + displayOpts.rowGap) + 10;
+if (displayOpts.orientation === DisplayOrientation.Vertical) {
+  ganttContainerHeight = gd.duration() * displayOpts.durationScale + 20;
+}
+ganttDiv.style.height = `${ganttContainerHeight}px`;
