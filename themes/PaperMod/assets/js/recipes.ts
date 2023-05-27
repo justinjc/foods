@@ -10,12 +10,6 @@ console.log(gd.toString());
 
 const ganttDiv = document.getElementById('gantt-container')!;
 
-const displayOpts: DisplayOptions = {
-  rowThickness: 100,
-  durationScale: 0.1,
-  orientation: DisplayOrientation.Horizontal,
-};
-
 function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
   for (const [rowIdx, ganttRow] of ganttData.rows.entries()) {
     for (const item of ganttRow.items) {
@@ -23,23 +17,19 @@ function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
       itemDiv.classList.add('gantt-item');
       itemDiv.innerHTML = item.id;
 
-      let pos: GanttItemPos;
+      let pos: GanttItemPos = {
+        h: displayOpts.rowThickness,
+        w: item.duration * displayOpts.durationScale,
+        x: item.start * displayOpts.durationScale,
+        y: rowIdx * displayOpts.rowThickness,
+      };
       switch (displayOpts.orientation) {
         case DisplayOrientation.Horizontal:
-          pos = {
-            h: item.duration * displayOpts.durationScale,
-            w: displayOpts.rowThickness,
-            x: rowIdx * displayOpts.rowThickness,
-            y: item.start * displayOpts.durationScale,
-          };
+          // Already initialized assuming horizontal, so noop.
           break;
         case DisplayOrientation.Vertical:
-          pos = {
-            h: item.duration * displayOpts.durationScale,
-            w: displayOpts.rowThickness,
-            x: rowIdx * displayOpts.rowThickness,
-            y: item.start * displayOpts.durationScale,
-          };
+          [pos.h, pos.w] = [pos.w, pos.h];
+          [pos.x, pos.y] = [pos.y, pos.x];
           break;
         default:
           throw new Error(
@@ -54,6 +44,12 @@ function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
     }
   }
 }
+
+const displayOpts: DisplayOptions = {
+  rowThickness: 20,
+  durationScale: ganttDiv.clientWidth / gd.duration(),
+  orientation: DisplayOrientation.Horizontal,
+};
 
 appendGantt(gd, displayOpts);
 ganttDiv.style.height = `${gd.duration() * displayOpts.durationScale + 20}px`;
