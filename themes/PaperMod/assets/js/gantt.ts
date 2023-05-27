@@ -393,8 +393,8 @@ export function appendGantt(
     for (const item of ganttRow.items) {
       const itemDiv = document.createElement('div');
       itemDiv.classList.add('gantt-item');
-      // itemDiv.innerHTML = (item.idx + 1).toString();
       itemDiv.innerHTML = item.id;
+      // itemDiv.innerHTML = `${Math.round((item.duration / 60) * 10) / 10}m`;
 
       const pos: GanttItemPos = {
         h: displayOpts.rowThickness,
@@ -420,7 +420,9 @@ export function appendGantt(
       itemDiv.style.height = `${pos.h}px`;
       itemDiv.style.width = `${pos.w}px`;
       itemDiv.style.backgroundColor = `var(--gantt-item-${item.idx % 10}-bg)`;
+
       ganttDiv.appendChild(itemDiv);
+      console.log(`${item.id}: ${contentOverflow(itemDiv)}`);
     }
   }
 
@@ -432,4 +434,8 @@ export function appendGantt(
       ganttData.duration() * displayOpts.durationScale + 20;
   }
   ganttDiv.style.height = `${ganttContainerHeight}px`;
+}
+
+function contentOverflow(element: HTMLElement): boolean {
+  return element.scrollWidth > element.offsetWidth;
 }

@@ -13,5 +13,4 @@
   display: grid;
   place-items: center;
   white-space: nowrap;
-  overflow: clip;
 }
