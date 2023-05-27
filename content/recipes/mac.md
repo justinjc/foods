@@ -66,5 +66,3 @@ recipe:
       end:
       dependsOn: combine
 ---
-
-Beans

@@ -162,7 +162,7 @@ export class GanttItem {
   }
 }
 
-export class GanttRow {
+class GanttRow {
   items: GanttItem[] = [];
 
   place(newItem: GanttItem): boolean {
@@ -210,7 +210,7 @@ export class GanttRow {
   }
 }
 
-export type GanttItemPos = {
+type GanttItemPos = {
   h: number;
   w: number;
   x: number;
@@ -232,8 +232,7 @@ export type DisplayOptions = {
 export class GanttData {
   readonly rows: GanttRow[] = [];
 
-  constructor() {
-    const ganttItems = ganttItemsFromDOM();
+  constructor(ganttItems: GanttItem[]) {
     if (ganttItems.length === 0) {
       return;
     }
@@ -335,7 +334,7 @@ type StartEndRegexGroups = {
   seconds?: string;
 };
 
-export type InputDataset = {
+type InputDataset = {
   idx: number;
   id: string;
   desc?: string;
@@ -359,7 +358,7 @@ Expects a DOM element with this parent/child structure (element type
   <div data-id="bacon" data-start="10h" ... ></div>
 </div>
 */
-function ganttItemsFromDOM(): GanttItem[] {
+export function ganttItemsFromDOM(): GanttItem[] {
   const ganttData: GanttItem[] = [];
 
   const ganttDomData = document.getElementById('gantt-data');
@@ -383,4 +382,53 @@ function ganttItemsFromDOM(): GanttItem[] {
   }
 
   return ganttData;
+}
+
+export function appendGantt(
+  ganttData: GanttData,
+  ganttDiv: HTMLElement,
+  displayOpts: DisplayOptions,
+) {
+  for (const [rowIdx, ganttRow] of ganttData.rows.entries()) {
+    for (const item of ganttRow.items) {
+      const itemDiv = document.createElement('div');
+      itemDiv.classList.add('gantt-item');
+      itemDiv.innerHTML = (item.idx + 1).toString();
+
+      const pos: GanttItemPos = {
+        h: displayOpts.rowThickness,
+        w: item.duration * displayOpts.durationScale,
+        x: item.start * displayOpts.durationScale,
+        y: rowIdx * (displayOpts.rowThickness + displayOpts.rowGap),
+      };
+      switch (displayOpts.orientation) {
+        case DisplayOrientation.Horizontal:
+          // Already initialized assuming horizontal, so noop.
+          break;
+        case DisplayOrientation.Vertical:
+          [pos.h, pos.w] = [pos.w, pos.h];
+          [pos.x, pos.y] = [pos.y, pos.x];
+          break;
+        default:
+          throw new Error(
+            `unknown gantt orientation ${displayOpts.orientation}`,
+          );
+      }
+
+      itemDiv.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+      itemDiv.style.height = `${pos.h}px`;
+      itemDiv.style.width = `${pos.w}px`;
+      itemDiv.style.backgroundColor = `var(--gantt-item-${item.idx % 10}-bg)`;
+      ganttDiv.appendChild(itemDiv);
+    }
+  }
+
+  let ganttContainerHeight =
+    ganttData.rows.length * (displayOpts.rowThickness + displayOpts.rowGap) +
+    10;
+  if (displayOpts.orientation === DisplayOrientation.Vertical) {
+    ganttContainerHeight =
+      ganttData.duration() * displayOpts.durationScale + 20;
+  }
+  ganttDiv.style.height = `${ganttContainerHeight}px`;
 }
