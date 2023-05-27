@@ -1,7 +1,7 @@
 import {
   DisplayOptions,
-  GanttData,
   DisplayOrientation,
+  GanttData,
   GanttItemPos,
 } from './gantt';
 
@@ -16,7 +16,7 @@ function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
       itemDiv.classList.add('gantt-item');
       itemDiv.innerHTML = item.id;
 
-      let pos: GanttItemPos = {
+      const pos: GanttItemPos = {
         h: displayOpts.rowThickness,
         w: item.duration * displayOpts.durationScale,
         x: item.start * displayOpts.durationScale,
@@ -32,7 +32,7 @@ function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
           break;
         default:
           throw new Error(
-            `unknown gantt orientation ${displayOpts.orientation}`
+            `unknown gantt orientation ${displayOpts.orientation}`,
           );
       }
 
