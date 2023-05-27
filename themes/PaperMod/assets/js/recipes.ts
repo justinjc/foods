@@ -10,12 +10,11 @@ const gd = new GanttData();
 const ganttDiv = document.getElementById('gantt-container')!;
 
 function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
-  let itemIdx = 0;
   for (const [rowIdx, ganttRow] of ganttData.rows.entries()) {
     for (const item of ganttRow.items) {
       const itemDiv = document.createElement('div');
       itemDiv.classList.add('gantt-item');
-      itemDiv.innerHTML = item.id;
+      itemDiv.innerHTML = `${(item.idx + 1).toString()} ${item.id}`;
 
       const pos: GanttItemPos = {
         h: displayOpts.rowThickness,
@@ -40,10 +39,8 @@ function appendGantt(ganttData: GanttData, displayOpts: DisplayOptions) {
       itemDiv.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
       itemDiv.style.height = `${pos.h}px`;
       itemDiv.style.width = `${pos.w}px`;
-      itemDiv.style.backgroundColor = `var(--gantt-item-${itemIdx}-bg)`;
+      itemDiv.style.backgroundColor = `var(--gantt-item-${item.idx % 10}-bg)`;
       ganttDiv.appendChild(itemDiv);
-
-      itemIdx = (itemIdx + 1) % 10;
     }
   }
 }

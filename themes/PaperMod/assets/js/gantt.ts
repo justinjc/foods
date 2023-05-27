@@ -1,4 +1,5 @@
 export class GanttItem {
+  readonly idx: number;
   readonly id: string;
   readonly desc?: string;
   private startInput?: string;
@@ -11,6 +12,7 @@ export class GanttItem {
   private resolvedDurationSeconds = 0;
 
   constructor(itemDataset: InputDataset) {
+    this.idx = itemDataset.idx;
     this.id = itemDataset.id;
     this.desc = itemDataset.desc;
     this.startInput = itemDataset.start;
@@ -84,7 +86,7 @@ export class GanttItem {
 
   private parseStartEnd(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>
+    resolvedItems?: Map<string, GanttItem>,
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -120,7 +122,7 @@ export class GanttItem {
 
   private parseDependsOn(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>
+    resolvedItems?: Map<string, GanttItem>,
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -334,6 +336,7 @@ type StartEndRegexGroups = {
 };
 
 export type InputDataset = {
+  idx: number;
   id: string;
   desc?: string;
   start?: string;
@@ -364,9 +367,13 @@ function ganttItemsFromDOM(): GanttItem[] {
     throw new Error('gantt-data element not found');
   }
 
+  let childIdx = 0;
   for (const child of ganttDomData.children) {
     const item = child as HTMLElement;
-    const itemDataset = item.dataset as InputDataset;
+    const itemDataset = {
+      ...item.dataset,
+      idx: childIdx++,
+    } as InputDataset;
 
     if (!GanttItem.validInput(itemDataset)) {
       throw new Error(`invalid gantt item input id: ${itemDataset.id}`);
