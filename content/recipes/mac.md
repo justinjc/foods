@@ -15,12 +15,12 @@ recipe:
       desc:
       start:
       duration: 30m
-      end:
+      end: bake.start
       dependsOn:
     - id: bacon
       desc:
       start:
-      duration: 15m
+      duration: 20m
       end:
       dependsOn:
     - id: shrimp
@@ -64,7 +64,7 @@ recipe:
       start:
       duration: 20m
       end:
-      dependsOn: preheat combine
+      dependsOn: combine
 ---
 
 Beans

@@ -208,6 +208,24 @@ export class GanttRow {
   }
 }
 
+export type GanttItemPos = {
+  h: number;
+  w: number;
+  x: number;
+  y: number;
+};
+
+export enum DisplayOrientation {
+  Horizontal,
+  Vertical,
+}
+
+export type DisplayOptions = {
+  rowThickness: number;
+  durationScale: number;
+  orientation: DisplayOrientation;
+};
+
 export class GanttData {
   readonly rows: GanttRow[] = [];
 
