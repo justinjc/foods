@@ -429,7 +429,7 @@ export function appendGantt(
 
   let ganttContainerHeight =
     ganttData.rows.length * (displayOpts.rowThickness + displayOpts.rowGap) +
-    30;
+    15;
   if (displayOpts.orientation === DisplayOrientation.Vertical) {
     ganttContainerHeight =
       ganttData.duration() * displayOpts.durationScale + 20;
