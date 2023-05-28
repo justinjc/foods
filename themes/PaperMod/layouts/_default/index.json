@@ -5,7 +5,11 @@
     {{- range .Params.recipe.ingredients -}}
       {{- $data.Add "ingredients" (slice .name) -}}
     {{- end -}}
-    {{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" .Summary "ingredients" ($data.Get  "ingredients")) -}}
+    {{- range .Params.recipe.gantt -}}
+      {{- $data.Add "instructionIDs" (slice .id) -}}
+      {{- $data.Add "instructionDescs" (slice .desc) -}}
+    {{- end -}}
+    {{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" .Summary "ingredients" ($data.Get  "ingredients") "instructionIDs" ($data.Get  "instructionIDs") "instructionDescs" ($data.Get  "instructionDescs")) -}}
   {{- end }}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}
