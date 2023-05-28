@@ -11,10 +11,10 @@ recipe:
     - name: bobby
       num: 2.5 cups
   gantt:
-    - id: preheat
-      desc:
+    - id: preheat_350F
+      desc: Preheat oven 350F
       start:
-      duration: 30m
+      duration: 45m
       end: bake.start
       dependsOn:
     - id: bacon

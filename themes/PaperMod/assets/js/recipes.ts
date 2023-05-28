@@ -23,6 +23,6 @@ const instructionsList = document.getElementById('instructions-list')!;
 
 ganttItemsFromDOM().forEach((item) => {
   const listItem = document.createElement('li');
-  listItem.innerHTML = item.id;
+  listItem.innerHTML = item.desc ?? '';
   instructionsList.appendChild(listItem);
 });

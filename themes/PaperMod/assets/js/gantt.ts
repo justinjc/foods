@@ -311,7 +311,7 @@ const durationRegex =
   /^\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
 
 const startEndRegex =
-  /^\s*(?:(?<id>[a-zA-Z]+)\.(?<border>start|end))?\s*(?<operator>\+|-)?\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
+  /^\s*(?:(?<id>[a-zA-Z]+[a-zA-Z0-9_]*)\.(?<border>start|end))?\s*(?<operator>\+|-)?\s*(?:(?<days>\d+)d)?\s*(?:(?<hours>\d+)h)?\s*(?:(?<minutes>\d+)m)?\s*(?:(?<seconds>\d+)s)?\s*$/;
 
 enum IDBorder {
   Start = 'start',
@@ -393,8 +393,7 @@ export function appendGantt(
     for (const item of ganttRow.items) {
       const itemDiv = document.createElement('div');
       itemDiv.classList.add('gantt-item');
-      itemDiv.innerHTML = item.id;
-      // itemDiv.innerHTML = `${Math.round((item.duration / 60) * 10) / 10}m`;
+      itemDiv.innerHTML = item.id.replaceAll('_', ' ');
 
       const pos: GanttItemPos = {
         h: displayOpts.rowThickness,
@@ -422,7 +421,6 @@ export function appendGantt(
       itemDiv.style.backgroundColor = `var(--gantt-item-${item.idx % 10}-bg)`;
 
       ganttDiv.appendChild(itemDiv);
-      console.log(`${item.id}: ${contentOverflow(itemDiv)}`);
     }
   }
 
