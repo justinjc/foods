@@ -86,7 +86,7 @@ export class GanttItem {
 
   private parseStartEnd(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>,
+    resolvedItems?: Map<string, GanttItem>
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -122,7 +122,7 @@ export class GanttItem {
 
   private parseDependsOn(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>,
+    resolvedItems?: Map<string, GanttItem>
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -172,19 +172,21 @@ class GanttRow {
       return true;
     }
 
-    if (newItem.end <= this.items[0].start) {
+    const firstItem = this.items[0] as GanttItem;
+    if (newItem.end <= firstItem.start) {
       // Item is before first item; insert as first item.
       this.items.splice(0, 0, newItem);
       return true;
     }
 
-    if (newItem.start >= this.items[this.items.length - 1].end) {
+    const lastItem = this.items[this.items.length - 1] as GanttItem;
+    if (newItem.start >= lastItem.end) {
       // Item is after last item; push as last item.
       this.items.push(newItem);
       return true;
     }
 
-    let prevItem = this.items[0];
+    let prevItem: GanttItem = firstItem;
     for (const [idx, item] of this.items.slice(1).entries()) {
       if (newItem.start >= prevItem.end && newItem.end <= item.start) {
         this.items.splice(idx, 0, item);
@@ -202,7 +204,8 @@ class GanttRow {
       return 0;
     }
 
-    return this.items[numItems - 1].end;
+    const lastItem = this.items[numItems - 1] as GanttItem;
+    return lastItem.end;
   }
 
   toString(): string {
@@ -367,8 +370,8 @@ export function ganttItemsFromDOM(): GanttItem[] {
   }
 
   let childIdx = 0;
-  for (const child of ganttDomData.children) {
-    const item = child as HTMLElement;
+  for (let i = 0; i < ganttDomData.children.length; i++) {
+    const item = ganttDomData.children[i] as HTMLElement;
     const itemDataset = {
       ...item.dataset,
       idx: childIdx++,
@@ -387,7 +390,7 @@ export function ganttItemsFromDOM(): GanttItem[] {
 export function appendGantt(
   ganttData: GanttData,
   ganttDiv: HTMLElement,
-  displayOpts: DisplayOptions,
+  displayOpts: DisplayOptions
 ) {
   for (const [rowIdx, ganttRow] of ganttData.rows.entries()) {
     for (const item of ganttRow.items) {
@@ -411,7 +414,7 @@ export function appendGantt(
           break;
         default:
           throw new Error(
-            `unknown gantt orientation ${displayOpts.orientation}`,
+            `unknown gantt orientation ${displayOpts.orientation}`
           );
       }
 
@@ -432,8 +435,4 @@ export function appendGantt(
       ganttData.duration() * displayOpts.durationScale + 20;
   }
   ganttDiv.style.height = `${ganttContainerHeight}px`;
-}
-
-function contentOverflow(element: HTMLElement): boolean {
-  return element.scrollWidth > element.offsetWidth;
 }
