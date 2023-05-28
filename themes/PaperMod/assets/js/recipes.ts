@@ -1,3 +1,5 @@
+import convert from 'convert';
+
 import {
   DisplayOptions,
   DisplayOrientation,
@@ -26,3 +28,5 @@ ganttItemsFromDOM().forEach((item) => {
   listItem.innerHTML = item.desc ?? '';
   instructionsList.appendChild(listItem);
 });
+
+console.log(convert(1, 'tsp').to('best', 'imperial'));

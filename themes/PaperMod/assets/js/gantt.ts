@@ -86,7 +86,7 @@ export class GanttItem {
 
   private parseStartEnd(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>
+    resolvedItems?: Map<string, GanttItem>,
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -122,7 +122,7 @@ export class GanttItem {
 
   private parseDependsOn(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>
+    resolvedItems?: Map<string, GanttItem>,
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -390,7 +390,7 @@ export function ganttItemsFromDOM(): GanttItem[] {
 export function appendGantt(
   ganttData: GanttData,
   ganttDiv: HTMLElement,
-  displayOpts: DisplayOptions
+  displayOpts: DisplayOptions,
 ) {
   for (const [rowIdx, ganttRow] of ganttData.rows.entries()) {
     for (const item of ganttRow.items) {
@@ -414,7 +414,7 @@ export function appendGantt(
           break;
         default:
           throw new Error(
-            `unknown gantt orientation ${displayOpts.orientation}`
+            `unknown gantt orientation ${displayOpts.orientation}`,
           );
       }
 
