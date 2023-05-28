@@ -33,7 +33,12 @@
     <tbody>
       {{- range $item := .Params.recipe.ingredients }}
         <tr>
-          <td class="ingredient-num">{{ $item.num }}</td><td class="ingredient-name">{{ $item.name }}</td>
+          <td class="ingredient-amount">{{ $item.amount }}</td>
+          <td class="ingredient-name">{{ $item.name }}
+            {{- if $item.instruction -}}
+              , {{ $item.instruction }}
+            {{- end }}
+          </td>
         </tr>
       {{- end }}
     </tbody>
