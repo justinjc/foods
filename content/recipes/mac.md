@@ -6,11 +6,13 @@ layout: recipes
 recipe:
   servings: 6
   ingredients:
-    - name: thingy
-      amount: 1 lb
-      instruction: in 0.5" cubes
-    - name: bobby
-      amount: 2.5 cups
+    - group: all
+      items:
+        - name: thingy
+          amount: 1 lb
+          instruction: in 0.5" cubes
+        - name: bobby
+          amount: 2.5 cups
   gantt:
     - id: preheat_350F
       desc: Preheat oven 350F

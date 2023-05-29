@@ -389,7 +389,7 @@ export function ganttItemsFromDOM(): GanttItem[] {
 
 export function appendGantt(
   ganttData: GanttData,
-  ganttDiv: HTMLElement,
+  ganttDiv: HTMLDivElement,
   displayOpts: DisplayOptions,
 ) {
   for (const [rowIdx, ganttRow] of ganttData.rows.entries()) {

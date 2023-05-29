@@ -29,6 +29,25 @@
 
   {{- if .Params.recipe.ingredients }}
   <h4>Ingredients</h4>
+  <ol id="ingredients-data" class="display-none">
+    {{- range $group := .Params.recipe.ingredients }}
+    <li
+      data-group="{{- $group.group -}}"
+      >
+      <ol>
+        {{- range $item := $group.items }}
+        <li data-name="{{- $item.name -}}"
+         data-amount="{{- $item.amount -}}"
+         data-instruction="{{- $item.instruction -}}"></li>
+        {{- end}}
+      </ol>
+    </li>
+    {{- end}}
+  </ol>
+  <div id="ingredients-container"></div>
+
+  <hr />
+
   <table class="ingredients-table">
     <tbody>
       {{- range $item := .Params.recipe.ingredients }}
