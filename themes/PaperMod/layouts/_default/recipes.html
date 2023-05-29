@@ -28,7 +28,7 @@
   {{- end }}
 
   {{- if .Params.recipe.ingredients }}
-  <h4>Ingredients</h4>
+  <h1>Ingredients</h1>
   <ol id="ingredients-data" class="display-none">
     {{- range $group := .Params.recipe.ingredients }}
     <li
@@ -46,28 +46,12 @@
   </ol>
   <div id="ingredients-container"></div>
 
-  <hr />
-
-  <table class="ingredients-table">
-    <tbody>
-      {{- range $item := .Params.recipe.ingredients }}
-        <tr>
-          <td class="ingredient-amount">{{ $item.amount }}</td>
-          <td class="ingredient-name">{{ $item.name }}
-            {{- if $item.instruction -}}
-              , {{ $item.instruction }}
-            {{- end }}
-          </td>
-        </tr>
-      {{- end }}
-    </tbody>
-  </table>
-  {{- end }}
+  {{- end }} <!-- end if .Params.recipe.ingredients-->
 
   <hr />
 
   {{- if .Params.recipe.gantt }}
-  <h4>Gantt</h4>
+  <h1>Gantt</h1>
   <ol id="gantt-data" class="display-none">
     {{- range $item := .Params.recipe.gantt }}
     <li

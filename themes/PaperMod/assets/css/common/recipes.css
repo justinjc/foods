@@ -17,3 +17,16 @@
   margin: 0 auto;
   max-width: 760px;
 }
+
+#ingredients-container h2 {
+  font-size: 1em;
+  margin-bottom: 0.25em;
+}
+
+h1 {
+  margin-bottom: 1em;
+}
+
+.ingredient-group-div {
+  margin-bottom: 2em;
+}
