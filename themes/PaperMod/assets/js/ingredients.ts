@@ -1,11 +1,11 @@
 import { convert } from 'convert';
 
 export class IngredientGroup {
-  group: string;
+  name: string;
   items: Item[];
 
-  constructor(group: string, items: Item[]) {
-    this.group = group;
+  constructor(name: string, items: Item[]) {
+    this.name = name;
     this.items = items;
   }
 }
@@ -48,45 +48,20 @@ export function ingredientsFromDOM(): IngredientGroup[] {
 
 export function appendIngredients(
   ingredientsDiv: HTMLDivElement,
-  ingredients: IngredientGroup[],
+  ingredientGroups: IngredientGroup[]
 ) {
-  for (const ingredient of ingredients) {
+  for (const group of ingredientGroups) {
     const ingredientDiv = document.createElement('div');
     ingredientDiv.classList.add('ingredient-group-div');
 
-    if (ingredients.length > 1) {
+    if (ingredientGroups.length > 1) {
       // Only list group name if there is more than one group.
       const groupHeading = document.createElement('h2');
-      groupHeading.innerHTML = ingredient.group;
+      groupHeading.innerHTML = group.name;
       ingredientDiv.appendChild(groupHeading);
     }
 
-    const ingredientList = document.createElement('ul');
-    for (const item of ingredient.items) {
-      const ingredientListItem = document.createElement('li');
-
-      const ingredientAmountSpan = document.createElement('span');
-      ingredientAmountSpan.innerHTML = item.amount;
-      ingredientAmountSpan.classList.add('ingredient-amount');
-
-      const ingredientNameSpan = document.createElement('span');
-      ingredientNameSpan.innerHTML = item.name;
-      ingredientAmountSpan.classList.add('ingredient-name');
-
-      ingredientListItem.appendChild(ingredientAmountSpan);
-      ingredientListItem.appendChild(document.createTextNode(' '));
-      ingredientListItem.appendChild(ingredientNameSpan);
-      if (item.instruction) {
-        const ingredientInstructionSpan = document.createElement('span');
-        ingredientInstructionSpan.innerHTML = item.instruction;
-        ingredientAmountSpan.classList.add('ingredient-instruction');
-
-        ingredientListItem.appendChild(document.createTextNode(', '));
-        ingredientListItem.appendChild(ingredientInstructionSpan);
-      }
-
-      ingredientList.appendChild(ingredientListItem);
-    }
+    const ingredientList = createIngredientList(group);
     ingredientDiv.appendChild(ingredientList);
 
     ingredientsDiv.appendChild(ingredientDiv);
@@ -141,7 +116,7 @@ export function combineGroups(groups: IngredientGroup[]): IngredientGroup {
         // know which family the unit is for.
         newQuantity = convert(newParsed.quantity, newParsed.unit).to(
           // @ts-ignore
-          existingParsed.unit,
+          existingParsed.unit
         );
       } catch (error: unknown) {
         let errMsg: string;
@@ -174,6 +149,51 @@ export function combineGroups(groups: IngredientGroup[]): IngredientGroup {
   });
 
   return new IngredientGroup('combined', items);
+}
+
+export function createIngredientGroupDiv(
+  group: IngredientGroup
+): HTMLDivElement {
+  const container = document.createElement('div');
+  container.classList.add('combined-ingredient-group-div');
+  container.classList.add('display-none');
+
+  const ingredientList = createIngredientList(group);
+  container.appendChild(ingredientList);
+
+  return container;
+}
+
+function createIngredientList(group: IngredientGroup): HTMLUListElement {
+  const ingredientList = document.createElement('ul');
+
+  for (const item of group.items) {
+    const ingredientListItem = document.createElement('li');
+
+    const ingredientAmountSpan = document.createElement('span');
+    ingredientAmountSpan.innerHTML = item.amount;
+    ingredientAmountSpan.classList.add('ingredient-amount');
+
+    const ingredientNameSpan = document.createElement('span');
+    ingredientNameSpan.innerHTML = item.name;
+    ingredientAmountSpan.classList.add('ingredient-name');
+
+    ingredientListItem.appendChild(ingredientAmountSpan);
+    ingredientListItem.appendChild(document.createTextNode(' '));
+    ingredientListItem.appendChild(ingredientNameSpan);
+    if (item.instruction) {
+      const ingredientInstructionSpan = document.createElement('span');
+      ingredientInstructionSpan.innerHTML = item.instruction;
+      ingredientAmountSpan.classList.add('ingredient-instruction');
+
+      ingredientListItem.appendChild(document.createTextNode(', '));
+      ingredientListItem.appendChild(ingredientInstructionSpan);
+    }
+
+    ingredientList.appendChild(ingredientListItem);
+  }
+
+  return ingredientList;
 }
 
 function parseAmount(input: string): AmountParsed {

@@ -9,6 +9,7 @@ import {
   appendIngredients,
   combineGroups,
   ingredientsFromDOM,
+  createIngredientGroupDiv,
 } from './ingredients';
 import { appendInstructions } from './instructions';
 
@@ -23,38 +24,42 @@ const displayOpts: DisplayOptions = {
 appendGantt(gd, ganttDiv, displayOpts);
 
 const instructionsList = document.getElementById(
-  'instructions-list',
+  'instructions-list'
 ) as HTMLOListElement;
 appendInstructions(ganttItemsFromDOM(), instructionsList);
 
 const ingredientsDiv = document.getElementById(
-  'ingredients-container',
+  'ingredients-container'
 ) as HTMLDivElement;
 const ingredients = ingredientsFromDOM();
 appendIngredients(ingredientsDiv, ingredientsFromDOM());
 
 const combinedGroup = combineGroups(ingredients);
 console.log(combinedGroup.items);
+ingredientsDiv.appendChild(createIngredientGroupDiv(combinedGroup));
+
 let combined = false;
 const combine = document.getElementById(
-  'ingredints-combine',
+  'ingredints-combine'
 ) as HTMLButtonElement;
 combine.addEventListener('click', () => {
   const groups = document.getElementsByClassName('ingredient-group-div');
+  const combinedGroup = document.getElementsByClassName(
+    'combined-ingredient-group-div'
+  );
 
-  if (combined) {
-    for (let i = 0; i < groups.length; i++) {
-      const group = groups.item(i) as HTMLDivElement;
+  combined = !combined;
+  displayElements(combinedGroup, combined);
+  displayElements(groups, !combined);
+});
+
+function displayElements(elements: HTMLCollectionOf<Element>, show: boolean) {
+  for (let i = 0; i < elements.length; i++) {
+    const group = elements.item(i) as HTMLDivElement;
+    if (show) {
       group.classList.remove('display-none');
-    }
-    combined = false;
-  } else {
-    for (let i = 0; i < groups.length; i++) {
-      const group = groups.item(i) as HTMLDivElement;
+    } else {
       group.classList.add('display-none');
     }
-    combined = true;
   }
-
-  // HERE use combinedGroup to append combined group
-});
+}
