@@ -35,7 +35,6 @@ const ingredients = ingredientsFromDOM();
 appendIngredients(ingredientsDiv, ingredientsFromDOM());
 
 const combinedGroup = combineGroups(ingredients);
-console.log(combinedGroup.items);
 ingredientsDiv.appendChild(createIngredientGroupDiv(combinedGroup));
 
 let combined = false;

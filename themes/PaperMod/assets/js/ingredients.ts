@@ -109,46 +109,60 @@ export function combineGroups(groups: IngredientGroup[]): IngredientGroup {
         continue;
       }
 
-      let newQuantity: number;
-      try {
-        // @ts-ignore
-        // There are convert overloads for each unit "family", but we don't
-        // know which family the unit is for.
-        newQuantity = convert(newParsed.quantity, newParsed.unit).to(
-          // @ts-ignore
-          existingParsed.unit
-        );
-      } catch (error: unknown) {
-        let errMsg: string;
-        if (error instanceof RangeError) {
-          errMsg = `unknown unit: ${newParsed.unit}`;
-        } else if (error instanceof TypeError) {
-          errMsg = `unknown unit: ${existingParsed.unit}`;
-        } else {
-          errMsg = `error converting ${newParsed} to ${existingParsed.unit}`;
-        }
-        throw new Error(errMsg);
-      }
-
-      itemsMap.set(item.name, {
-        quantity: existingParsed.quantity + newQuantity,
-        unit: existingParsed.unit,
-      });
+      itemsMap.set(item.name, sum(existingParsed, newParsed));
     }
   }
 
   const items: Item[] = [];
   itemsMap.forEach((v, k) => {
-    // @ts-ignore
-    const bestUnit = convert(v.quantity, v.unit).to('best', 'imperial');
     items.push({
       name: k,
-      amount: `${bestUnit.quantity} ${bestUnit.unit}`,
+      amount: `${v.quantity} ${v.unit}`,
       instruction: '',
     });
   });
 
   return new IngredientGroup('combined', items);
+}
+
+function sum(amount1: AmountParsed, amount2: AmountParsed): AmountParsed {
+  const amount1QuantityConverted = uconvert(amount1, amount2.unit);
+  const amount2QuantityConverted = uconvert(amount2, amount1.unit);
+
+  if (amount1QuantityConverted <= amount2QuantityConverted) {
+    return {
+      quantity: amount1QuantityConverted + amount2.quantity,
+      unit: amount2.unit,
+    };
+  } else {
+    return {
+      quantity: amount2QuantityConverted + amount1.quantity,
+      unit: amount1.unit,
+    };
+  }
+}
+
+function uconvert(amount: AmountParsed, to: string): number {
+  let quantity: number;
+
+  try {
+    // @ts-ignore
+    // There are convert overloads for each unit "family", but we don't
+    // know which family the unit is for.
+    quantity = convert(amount.quantity, amount.unit).to(to);
+  } catch (error: unknown) {
+    let errMsg: string;
+    if (error instanceof RangeError) {
+      errMsg = `unknown unit: ${amount.unit}`;
+    } else if (error instanceof TypeError) {
+      errMsg = `unknown unit: ${to}`;
+    } else {
+      errMsg = `error converting ${amount} to ${to}`;
+    }
+    throw new Error(errMsg);
+  }
+
+  return quantity;
 }
 
 export function createIngredientGroupDiv(

@@ -13,12 +13,16 @@ recipe:
           instruction: in 0.5" cubes
         - name: bobby
           amount: 2.5 cups
+        - name: butter
+          amount: 1 tsp
     - group: Side
       items:
         - name: thingy
           amount: 8 oz
         - name: one more thing
           amount: 5ml
+        - name: butter
+          amount: 1 tbsp
   gantt:
     - id: preheat_350F
       desc: Preheat oven 350F
