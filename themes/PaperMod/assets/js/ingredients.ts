@@ -1,4 +1,5 @@
 import { convert } from 'convert';
+import { roundDP } from './common';
 
 export class IngredientGroup {
   name: string;
@@ -117,7 +118,7 @@ export function combineGroups(groups: IngredientGroup[]): IngredientGroup {
   itemsMap.forEach((v, k) => {
     items.push({
       name: k,
-      amount: `${v.quantity} ${v.unit}`,
+      amount: `${roundDP(v.quantity, 3)} ${v.unit}`,
       instruction: '',
     });
   });
@@ -187,18 +188,18 @@ function createIngredientList(group: IngredientGroup): HTMLUListElement {
     const ingredientAmountSpan = document.createElement('span');
     ingredientAmountSpan.innerHTML = item.amount;
     ingredientAmountSpan.classList.add('ingredient-amount');
+    ingredientListItem.appendChild(ingredientAmountSpan);
 
     const ingredientNameSpan = document.createElement('span');
     ingredientNameSpan.innerHTML = item.name;
-    ingredientAmountSpan.classList.add('ingredient-name');
-
-    ingredientListItem.appendChild(ingredientAmountSpan);
+    ingredientNameSpan.classList.add('ingredient-name');
     ingredientListItem.appendChild(document.createTextNode(' '));
     ingredientListItem.appendChild(ingredientNameSpan);
+
     if (item.instruction) {
       const ingredientInstructionSpan = document.createElement('span');
       ingredientInstructionSpan.innerHTML = item.instruction;
-      ingredientAmountSpan.classList.add('ingredient-instruction');
+      ingredientInstructionSpan.classList.add('ingredient-instruction');
 
       ingredientListItem.appendChild(document.createTextNode(', '));
       ingredientListItem.appendChild(ingredientInstructionSpan);
