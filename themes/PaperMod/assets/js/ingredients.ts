@@ -1,3 +1,5 @@
+import { convert } from 'convert';
+
 export class IngredientGroup {
   group: string;
   items: Item[];
@@ -43,9 +45,6 @@ export function ingredientsFromDOM(): IngredientGroup[] {
 
   return ingredients;
 }
-
-const ingredients = ingredientsFromDOM();
-console.log(ingredients);
 
 export function appendIngredients(
   ingredientsDiv: HTMLDivElement,
@@ -97,3 +96,101 @@ export function appendIngredients(
 type IngredientDataset = {
   group: string;
 };
+
+const amountRegex =
+  /^\s*(?<quantity>[1-9][0-9]*(?:\.[0-9]+)?)\s*(?<unit>[a-zA-Z].*)\s*$/;
+type AmountRegexGroups = {
+  quantity: string;
+  unit: string;
+};
+type AmountParsed = {
+  quantity: number;
+  unit: string;
+};
+
+export function combineGroups(groups: IngredientGroup[]): IngredientGroup {
+  if (groups.length === 0 || !groups[0]) {
+    return new IngredientGroup('', []);
+  }
+  if (groups.length === 1) {
+    return groups[0] as IngredientGroup;
+  }
+
+  const itemsMap = new Map<string, AmountParsed>();
+  for (const group of groups) {
+    for (const item of group.items) {
+      const newParsed = parseAmount(item.amount);
+
+      if (!itemsMap.has(item.name)) {
+        itemsMap.set(item.name, {
+          quantity: newParsed.quantity,
+          unit: newParsed.unit,
+        });
+        continue;
+      }
+
+      const existingParsed = itemsMap.get(item.name);
+      if (!existingParsed) {
+        continue;
+      }
+
+      let newQuantity: number;
+      try {
+        // @ts-ignore
+        // There are convert overloads for each unit "family", but we don't
+        // know which family the unit is for.
+        newQuantity = convert(newParsed.quantity, newParsed.unit).to(
+          // @ts-ignore
+          existingParsed.unit,
+        );
+      } catch (error: unknown) {
+        let errMsg: string;
+        if (error instanceof RangeError) {
+          errMsg = `unknown unit: ${newParsed.unit}`;
+        } else if (error instanceof TypeError) {
+          errMsg = `unknown unit: ${existingParsed.unit}`;
+        } else {
+          errMsg = `error converting ${newParsed} to ${existingParsed.unit}`;
+        }
+        throw new Error(errMsg);
+      }
+
+      itemsMap.set(item.name, {
+        quantity: existingParsed.quantity + newQuantity,
+        unit: existingParsed.unit,
+      });
+    }
+  }
+
+  const items: Item[] = [];
+  itemsMap.forEach((v, k) => {
+    // @ts-ignore
+    const bestUnit = convert(v.quantity, v.unit).to('best', 'imperial');
+    items.push({
+      name: k,
+      amount: `${bestUnit.quantity} ${bestUnit.unit}`,
+      instruction: '',
+    });
+  });
+
+  return new IngredientGroup('combined', items);
+}
+
+function parseAmount(input: string): AmountParsed {
+  const matches = input.match(amountRegex)?.groups as AmountRegexGroups;
+
+  let quantity: number;
+  let unit: string;
+  if (matches) {
+    quantity = parseFloat(matches.quantity);
+    unit = matches.unit;
+  } else {
+    quantity = 0;
+    unit = '';
+  }
+
+  return {
+    quantity: quantity,
+    unit: unit,
+  };
+}

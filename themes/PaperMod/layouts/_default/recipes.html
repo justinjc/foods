@@ -29,6 +29,7 @@
 
   {{- if .Params.recipe.ingredients }}
   <h1>Ingredients</h1>
+  <button id="ingredints-combine">Combine</button>
   <ol id="ingredients-data" class="display-none">
     {{- range $group := .Params.recipe.ingredients }}
     <li

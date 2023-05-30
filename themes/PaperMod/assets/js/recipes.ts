@@ -1,4 +1,3 @@
-import convert from 'convert';
 import {
   DisplayOptions,
   DisplayOrientation,
@@ -6,7 +5,11 @@ import {
   appendGantt,
   ganttItemsFromDOM,
 } from './gantt';
-import { appendIngredients, ingredientsFromDOM } from './ingredients';
+import {
+  appendIngredients,
+  combineGroups,
+  ingredientsFromDOM,
+} from './ingredients';
 import { appendInstructions } from './instructions';
 
 const gd = new GanttData(ganttItemsFromDOM());
@@ -24,9 +27,34 @@ const instructionsList = document.getElementById(
 ) as HTMLOListElement;
 appendInstructions(ganttItemsFromDOM(), instructionsList);
 
-console.log(convert(1, 'tsp').to('best', 'imperial'));
-
 const ingredientsDiv = document.getElementById(
   'ingredients-container',
 ) as HTMLDivElement;
+const ingredients = ingredientsFromDOM();
 appendIngredients(ingredientsDiv, ingredientsFromDOM());
+
+const combinedGroup = combineGroups(ingredients);
+console.log(combinedGroup.items);
+let combined = false;
+const combine = document.getElementById(
+  'ingredints-combine',
+) as HTMLButtonElement;
+combine.addEventListener('click', () => {
+  const groups = document.getElementsByClassName('ingredient-group-div');
+
+  if (combined) {
+    for (let i = 0; i < groups.length; i++) {
+      const group = groups.item(i) as HTMLDivElement;
+      group.classList.remove('display-none');
+    }
+    combined = false;
+  } else {
+    for (let i = 0; i < groups.length; i++) {
+      const group = groups.item(i) as HTMLDivElement;
+      group.classList.add('display-none');
+    }
+    combined = true;
+  }
+
+  // HERE use combinedGroup to append combined group
+});

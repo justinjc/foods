@@ -15,6 +15,8 @@ recipe:
           amount: 2.5 cups
     - group: Side
       items:
+        - name: thingy
+          amount: 8 oz
         - name: one more thing
           amount: 5ml
   gantt:
