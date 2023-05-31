@@ -5,14 +5,18 @@ import {
   appendGantt,
   ganttItemsFromDOM,
 } from './gantt';
+import { toggleIngredientGroups } from './handlers';
 import {
   appendIngredients,
   combineGroups,
-  ingredientsFromDOM,
   createIngredientGroupDiv,
+  ingredientsFromDOM,
 } from './ingredients';
 import { appendInstructions } from './instructions';
 
+///////////////////////////////////////
+// Add gantt to DOM
+///////////////////////////////////////
 const gd = new GanttData(ganttItemsFromDOM());
 const ganttDiv = document.getElementById('gantt-container') as HTMLDivElement;
 const displayOpts: DisplayOptions = {
@@ -23,42 +27,37 @@ const displayOpts: DisplayOptions = {
 };
 appendGantt(gd, ganttDiv, displayOpts);
 
+///////////////////////////////////////
+// Add instructions to DOM
+///////////////////////////////////////
 const instructionsList = document.getElementById(
-  'instructions-list'
+  'instructions-list',
 ) as HTMLOListElement;
 appendInstructions(ganttItemsFromDOM(), instructionsList);
 
+///////////////////////////////////////
+// Add ingredients to DOM
+///////////////////////////////////////
 const ingredientsDiv = document.getElementById(
-  'ingredients-container'
+  'ingredients-container',
 ) as HTMLDivElement;
 const ingredients = ingredientsFromDOM();
 appendIngredients(ingredientsDiv, ingredientsFromDOM());
 
+///////////////////////////////////////
+// Combining ingredients event listener
+///////////////////////////////////////
 const combinedGroup = combineGroups(ingredients);
 ingredientsDiv.appendChild(createIngredientGroupDiv(combinedGroup));
-
-let combined = false;
+let isCombined = false;
 const combine = document.getElementById(
-  'ingredints-combine'
+  'ingredints-combine',
 ) as HTMLButtonElement;
 combine.addEventListener('click', () => {
   const groups = document.getElementsByClassName('ingredient-group-div');
   const combinedGroup = document.getElementsByClassName(
-    'combined-ingredient-group-div'
+    'combined-ingredient-group-div',
   );
-
-  combined = !combined;
-  displayElements(combinedGroup, combined);
-  displayElements(groups, !combined);
+  isCombined = !isCombined;
+  toggleIngredientGroups(groups, combinedGroup, isCombined);
 });
-
-function displayElements(elements: HTMLCollectionOf<Element>, show: boolean) {
-  for (let i = 0; i < elements.length; i++) {
-    const group = elements.item(i) as HTMLDivElement;
-    if (show) {
-      group.classList.remove('display-none');
-    } else {
-      group.classList.add('display-none');
-    }
-  }
-}
