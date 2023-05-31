@@ -28,21 +28,13 @@ const displayOpts: DisplayOptions = {
 appendGantt(gd, ganttDiv, displayOpts);
 
 ///////////////////////////////////////
-// Add instructions to DOM
-///////////////////////////////////////
-const instructionsList = document.getElementById(
-  'instructions-list',
-) as HTMLOListElement;
-appendInstructions(ganttItemsFromDOM(), instructionsList);
-
-///////////////////////////////////////
 // Add ingredients to DOM
 ///////////////////////////////////////
 const ingredientsDiv = document.getElementById(
-  'ingredients-container',
+  'ingredient-groups-container',
 ) as HTMLDivElement;
 const ingredients = ingredientsFromDOM();
-appendIngredients(ingredientsDiv, ingredientsFromDOM());
+appendIngredients(ingredientsDiv, ingredients);
 
 ///////////////////////////////////////
 // Combining ingredients event listener
@@ -61,3 +53,11 @@ combine.addEventListener('click', () => {
   isCombined = !isCombined;
   toggleIngredientGroups(groups, combinedGroup, isCombined);
 });
+
+///////////////////////////////////////
+// Add instructions to DOM
+///////////////////////////////////////
+const instructionsList = document.getElementById(
+  'instructions-list',
+) as HTMLOListElement;
+appendInstructions(ganttItemsFromDOM(), instructionsList);

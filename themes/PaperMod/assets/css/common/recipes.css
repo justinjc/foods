@@ -13,20 +13,33 @@
   white-space: nowrap;
 }
 
-#instructions-container {
-  margin: 0 auto;
-  max-width: 760px;
-}
-
-#ingredients-container h2 {
-  font-size: 1em;
-  margin-bottom: 0.25em;
+#wordy-divs {
+  margin-top: 1em;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 h1 {
   margin-bottom: 1em;
 }
 
+#ingredients-container {
+  width: 300px;
+}
+
+#ingredient-groups-container h2 {
+  font-size: 1em;
+  margin-bottom: 0.25em;
+}
+
 .ingredient-group-div {
   margin-bottom: 2em;
+}
+
+#instructions-container {
+}
+
+#instructions-list-container {
+  margin: 0 auto;
+  max-width: 760px;
 }

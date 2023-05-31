@@ -27,32 +27,10 @@
   {{- partial "toc.html" . }}
   {{- end }}
 
-  {{- if .Params.recipe.ingredients }}
-  <h1>Ingredients</h1>
-  <button id="ingredints-combine">Combine</button>
-  <ol id="ingredients-data" class="display-none">
-    {{- range $group := .Params.recipe.ingredients }}
-    <li
-      data-group="{{- $group.group -}}"
-      >
-      <ol>
-        {{- range $item := $group.items }}
-        <li data-name="{{- $item.name -}}"
-         data-amount="{{- $item.amount -}}"
-         data-instruction="{{- $item.instruction -}}"></li>
-        {{- end}}
-      </ol>
-    </li>
-    {{- end}}
-  </ol>
-  <div id="ingredients-container"></div>
-
-  {{- end }} <!-- end if .Params.recipe.ingredients-->
-
-  <hr />
-
+  <!--
+  Gantt
+  -->
   {{- if .Params.recipe.gantt }}
-  <h1>Gantt</h1>
   <ol id="gantt-data" class="display-none">
     {{- range $item := .Params.recipe.gantt }}
     <li
@@ -66,14 +44,51 @@
     {{- end}}
   </ol>
   <div id="gantt-container"></div>
-  {{- end}}
+  {{- end }} <!-- end .Params.recipe.gantt -->
 
-  <hr />
+  <div id="wordy-divs">
+    {{- if .Params.recipe.ingredients }}
+    <div id="ingredients-container">
+      <!--
+      Ingredients
+      -->
+      <h1>Ingredients</h1>
+      <button id="ingredints-combine">Combine</button>
+      <ol id="ingredients-data" class="display-none">
+        {{- range $group := .Params.recipe.ingredients }}
+        <li
+          data-group="{{- $group.group -}}"
+          >
+          <ol>
+            {{- range $item := $group.items }}
+            <li data-name="{{- $item.name -}}"
+            data-amount="{{- $item.amount -}}"
+            data-instruction="{{- $item.instruction -}}"></li>
+            {{- end}}
+          </ol>
+        </li>
+        {{- end}}
+      </ol>
+      <div id="ingredient-groups-container"></div>
+    </div>
+    {{- end }} <!-- end if .Params.recipe.ingredients-->
 
-  <div id="instructions-container">
-    <ol id="instructions-list"></ol>
+    <!--
+    Instructions
+    -->
+    {{- if .Params.recipe.gantt }}
+    <div id="ingredients-container">
+      <h1>Instructions</h1>
+      <div id="instructions-list-container">
+        <ol id="instructions-list"></ol>
+      </div>
+    </div>
+    {{- end }} <!-- end .Params.recipe.gantt -->
   </div>
 
+  <!--
+  Standard markdown content
+  -->
   {{- if .Content }}
   <div class="post-content">
     {{- if not (.Param "disableAnchoredHeadings") }}
