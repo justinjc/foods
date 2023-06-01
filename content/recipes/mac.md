@@ -43,7 +43,7 @@ recipe:
       end:
       dependsOn: bacon
     - id: breadcrumbs
-      desc:
+      desc: gg
       start:
       duration: 10m
       end:
@@ -55,7 +55,7 @@ recipe:
       end:
       dependsOn: breadcrumbs
     - id: water
-      desc:
+      desc: dd
       start:
       duration: 15m
       end: pasta.start

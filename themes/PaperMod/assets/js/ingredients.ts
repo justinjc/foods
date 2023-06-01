@@ -49,7 +49,7 @@ export function ingredientsFromDOM(): IngredientGroup[] {
 
 export function appendIngredients(
   ingredientsDiv: HTMLDivElement,
-  ingredientGroups: IngredientGroup[]
+  ingredientGroups: IngredientGroup[],
 ) {
   for (const group of ingredientGroups) {
     const ingredientDiv = document.createElement('div');
@@ -167,11 +167,18 @@ function uconvert(amount: AmountParsed, to: string): number {
 }
 
 export function createIngredientGroupDiv(
-  group: IngredientGroup
+  group: IngredientGroup,
 ): HTMLDivElement {
   const container = document.createElement('div');
   container.classList.add('combined-ingredient-group-div');
   container.classList.add('display-none');
+
+  const em = document.createElement('em');
+  em.innerHTML = 'Combined';
+  const groupHeading = document.createElement('h2');
+  groupHeading.appendChild(em);
+
+  container.appendChild(groupHeading);
 
   const ingredientList = createIngredientList(group);
   container.appendChild(ingredientList);

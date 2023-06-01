@@ -23,13 +23,23 @@ h1 {
   margin-bottom: 1em;
 }
 
+h2 {
+  font-size: 1em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
 #ingredients-container {
   width: 300px;
 }
 
-#ingredient-groups-container h2 {
-  font-size: 1em;
-  margin-bottom: 0.25em;
+#ingredient-heading {
+  display: flex;
+  align-items: baseline;
+}
+
+#ingredient-groups-container ul li {
+  list-style: none;
 }
 
 .ingredient-group-div {
@@ -42,4 +52,13 @@ h1 {
 #instructions-list-container {
   margin: 0 auto;
   max-width: 760px;
+}
+
+#instructions-list-container ol {
+  padding: 0;
+  list-style: none;
+}
+
+#ingredients-combine-btn {
+  margin-left: 10px;
 }

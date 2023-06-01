@@ -42,16 +42,30 @@ appendIngredients(ingredientsDiv, ingredients);
 const combinedGroup = combineGroups(ingredients);
 ingredientsDiv.appendChild(createIngredientGroupDiv(combinedGroup));
 let isCombined = false;
-const combine = document.getElementById(
-  'ingredints-combine',
+const combineBtn = document.getElementById(
+  'ingredients-combine-btn',
 ) as HTMLButtonElement;
-combine.addEventListener('click', () => {
-  const groups = document.getElementsByClassName('ingredient-group-div');
-  const combinedGroup = document.getElementsByClassName(
-    'combined-ingredient-group-div',
-  );
+if (ingredients.length > 1) {
+  combineBtn.classList.remove('display-none');
+}
+const groupsDiv = document.getElementsByClassName('ingredient-group-div');
+const combinedGroupDiv = document.getElementsByClassName(
+  'combined-ingredient-group-div',
+);
+type SvgInHtml = HTMLElement & SVGElement;
+const svgSplit = document.getElementById('ingredient-split') as SvgInHtml;
+const svgCombine = document.getElementById('ingredient-combine') as SvgInHtml;
+combineBtn.addEventListener('click', () => {
   isCombined = !isCombined;
-  toggleIngredientGroups(groups, combinedGroup, isCombined);
+
+  if (isCombined) {
+    svgSplit.classList.remove('display-none');
+    svgCombine.classList.add('display-none');
+  } else {
+    svgSplit.classList.add('display-none');
+    svgCombine.classList.remove('display-none');
+  }
+  toggleIngredientGroups(groupsDiv, combinedGroupDiv, isCombined);
 });
 
 ///////////////////////////////////////
