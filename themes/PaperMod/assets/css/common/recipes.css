@@ -20,18 +20,14 @@
   gap: 50px;
 }
 
-h1 {
-  margin-bottom: 2em;
-}
-
 h2 {
   margin-bottom: 1em;
 }
 
 h3 {
   font-size: 1em;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
 }
 
 #ingredients-container {
@@ -45,11 +41,18 @@ h3 {
 
 #instructions-heading,
 #ingredients-heading {
-  height: 2.5em;
+  height: 2em;
+}
+
+#ingredient-groups-container ul {
+  padding-left: 18px;
 }
 
 #ingredient-groups-container ul li {
-  list-style: none;
+  /* list-style: none; */
+  list-style: circle;
+  /* padding-left: px; */
+  margin-bottom: 0.5em;
 }
 
 .ingredient-group-div {

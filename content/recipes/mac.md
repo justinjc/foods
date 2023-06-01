@@ -8,21 +8,33 @@ recipe:
   ingredients:
     - group: Main
       items:
-        - name: thingy
-          amount: 1 lb
-          instruction: in 0.5" cubes
-        - name: bobby
-          amount: 2.5 cups
-        - name: butter
-          amount: 1 tsp
-    - group: Side
+        - name: pasta
+          amount: 0.5 lb
+        - name: thick bacon
+          amount: 3 slices
+        - name: shrimp
+          amount: 0.5 lb
+          instruction: size 26-30/lb
+    - group: Breadcrumbs
       items:
-        - name: thingy
-          amount: 8 oz
-        - name: one more thing
-          amount: 5ml
+        - name: panko
+          amount: 1 cup
+        - name: parmesan
+          amount: 0.5 cup
         - name: butter
-          amount: 1 tbsp
+          amount: 2 tbsp
+    - group: Cheese Sauce
+      items:
+        - name: melty cheese
+          amount: 11 oz
+        - name: milk
+          amount: 2 cups
+        - name: butter
+          amount: 2 tbsp
+        - name: flour
+          amount: 2 tbsp
+        - name: sodium citrate
+          amount: 2 tsp
   gantt:
     - id: preheat_350F
       desc: Preheat oven 350F
@@ -39,11 +51,11 @@ recipe:
     - id: shrimp
       desc:
       start:
-      duration: 5m
+      duration: 10m
       end:
       dependsOn: bacon
     - id: breadcrumbs
-      desc: gg
+      desc:
       start:
       duration: 10m
       end:

@@ -74,7 +74,7 @@ type IngredientDataset = {
 };
 
 const amountRegex =
-  /^\s*(?<quantity>[1-9][0-9]*(?:\.[0-9]+)?)\s*(?<unit>[a-zA-Z].*)\s*$/;
+  /^\s*(?<quantity>[0-9]+(?:\.[0-9]+)?)\s*(?<unit>[a-zA-Z].*)?\s*$/;
 type AmountRegexGroups = {
   quantity: string;
   unit: string;
@@ -127,6 +127,13 @@ export function combineGroups(groups: IngredientGroup[]): IngredientGroup {
 }
 
 function sum(amount1: AmountParsed, amount2: AmountParsed): AmountParsed {
+  if (!amount1.unit || !amount2.unit) {
+    return {
+      quantity: amount1.quantity + amount2.quantity,
+      unit: '',
+    };
+  }
+
   const amount1QuantityConverted = uconvert(amount1, amount2.unit);
   const amount2QuantityConverted = uconvert(amount2, amount1.unit);
 
@@ -225,7 +232,7 @@ function parseAmount(input: string): AmountParsed {
   let unit: string;
   if (matches) {
     quantity = parseFloat(matches.quantity);
-    unit = matches.unit;
+    unit = matches.unit ?? '';
   } else {
     quantity = 0;
     unit = '';
