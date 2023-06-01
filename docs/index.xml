@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Foods</title>
-    <link>http://example.org/</link>
+    <link>https://justinjc.github.io/foods/</link>
     <description>Recent content on Foods</description>
     <image>
       <title>Foods</title>
-      <url>http://example.org/papermod-cover.png</url>
-      <link>http://example.org/papermod-cover.png</link>
+      <url>https://justinjc.github.io/foods/papermod-cover.png</url>
+      <link>https://justinjc.github.io/foods/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 21 May 2023 12:30:18 -0400</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 May 2023 12:30:18 -0400</lastBuildDate><atom:link href="https://justinjc.github.io/foods/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mac n cheese</title>
-      <link>http://example.org/recipes/mac/</link>
+      <link>https://justinjc.github.io/foods/recipes/mac/</link>
       <pubDate>Sun, 21 May 2023 12:30:18 -0400</pubDate>
       
-      <guid>http://example.org/recipes/mac/</guid>
+      <guid>https://justinjc.github.io/foods/recipes/mac/</guid>
       <description></description>
     </item>
     

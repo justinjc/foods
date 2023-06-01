@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://example.org/</loc>
+    <loc>https://justinjc.github.io/foods/</loc>
     <lastmod>2023-05-21T12:30:18-04:00</lastmod>
   </url><url>
-    <loc>http://example.org/recipes/mac/</loc>
+    <loc>https://justinjc.github.io/foods/recipes/mac/</loc>
     <lastmod>2023-05-21T12:30:18-04:00</lastmod>
   </url><url>
-    <loc>http://example.org/recipes/</loc>
+    <loc>https://justinjc.github.io/foods/recipes/</loc>
     <lastmod>2023-05-21T12:30:18-04:00</lastmod>
   </url><url>
-    <loc>http://example.org/archives/</loc>
+    <loc>https://justinjc.github.io/foods/archives/</loc>
   </url><url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://justinjc.github.io/foods/categories/</loc>
   </url><url>
-    <loc>http://example.org/search/</loc>
+    <loc>https://justinjc.github.io/foods/search/</loc>
   </url><url>
-    <loc>http://example.org/series/</loc>
+    <loc>https://justinjc.github.io/foods/series/</loc>
   </url><url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://justinjc.github.io/foods/tags/</loc>
   </url>
 </urlset>
