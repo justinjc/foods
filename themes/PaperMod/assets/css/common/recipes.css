@@ -20,21 +20,26 @@
   gap: 50px;
 }
 
-h2 {
+h3 {
+  font-size: 1em;
+  margin-top: 20px;
   margin-bottom: 1em;
 }
 
-h3 {
-  font-size: 1em;
-  margin-top: 1.5em;
-  margin-bottom: 1em;
+#servings {
+  margin-top: 20px;
 }
 
 #ingredients-container {
   width: 300px;
 }
 
-#ingredients-heading {
+#instructions-container {
+  width: 540px;
+}
+
+#ingredients-heading,
+#instructions-heading {
   display: flex;
   align-items: baseline;
 }

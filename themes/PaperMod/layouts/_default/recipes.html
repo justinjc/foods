@@ -53,7 +53,7 @@
       Ingredients
       -->
       <div id="ingredients-heading">
-        <h1>Ingredients</h1>
+        <h2>Ingredients</h2>
         <button id="ingredients-combine-btn" class="display-none">
           <svg id="ingredient-split" class="display-none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8ZM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2ZM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10Z"/>
@@ -63,6 +63,9 @@
           </svg>
         </button>
       </div>
+      {{- if .Params.recipe.servings }}
+      <p id="servings"><em>Servings: {{ .Params.recipe.servings }}</em></p>
+      {{- end }}
       <ol id="ingredients-data" class="display-none">
         {{- range $group := .Params.recipe.ingredients }}
         <li
@@ -85,13 +88,23 @@
     <!--
     Instructions
     -->
-    {{- if .Params.recipe.gantt }}
+    {{- if .Params.recipe.instructions }}
     <div id="instructions-container">
       <div id="instructions-heading">
-        <h1>Instructions</h1>
+        <h2>Instructions</h2>
       </div>
       <div id="instructions-list-container">
-        <ol id="instructions-list"></ol>
+        <ol id="instructions-list">
+          {{- range $idx, $instruction := .Params.recipe.instructions }}
+          <li>
+            <div>
+              <!-- https://stackoverflow.com/a/72465098 -->
+              <h3>Step {{ len (printf "x%*s" $idx "") }}</h3>
+              <p>{{ $instruction }}</p>
+            </div>
+          </li>
+          {{- end}}
+        </ol>
       </div>
     </div>
     {{- end }} <!-- end .Params.recipe.gantt -->

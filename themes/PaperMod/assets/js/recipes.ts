@@ -12,7 +12,6 @@ import {
   createIngredientGroupDiv,
   ingredientsFromDOM,
 } from './ingredients';
-import { appendInstructions } from './instructions';
 
 ///////////////////////////////////////
 // Add gantt to DOM
@@ -67,11 +66,3 @@ combineBtn.addEventListener('click', () => {
   }
   toggleIngredientGroups(groupsDiv, combinedGroupDiv, isCombined);
 });
-
-///////////////////////////////////////
-// Add instructions to DOM
-///////////////////////////////////////
-const instructionsList = document.getElementById(
-  'instructions-list',
-) as HTMLOListElement;
-appendInstructions(ganttItemsFromDOM(), instructionsList);

@@ -35,15 +35,20 @@ recipe:
           amount: 2 tbsp
         - name: sodium citrate
           amount: 2 tsp
+  instructions:
+    - 'Preheat oven to 350 F'
+    - 'Cook bacon and shrimp; wash pan'
+    - 'Make breadcrumbs; wash pan'
+    - 'Cheese sauce: make lightly browned roux. Add all the cold milk and
+    sodium citrate and bring to a light simmer. Add melty cheese.'
+    - 'Boil macaroni for 4 minutes.'
+    - 'Combine ingredients and bake.'
   gantt:
     - id: preheat_350F
-      desc: Preheat oven 350F
-      start:
+      start: 0
       duration: 45m
-      end: bake.start
       dependsOn:
     - id: bacon
-      desc:
       start:
       duration: 20m
       end:
@@ -63,11 +68,10 @@ recipe:
     - id: cheese
       desc:
       start:
-      duration: 30m
+      duration: 20m
       end:
       dependsOn: breadcrumbs
     - id: water
-      desc: dd
       start:
       duration: 15m
       end: pasta.start
@@ -78,16 +82,10 @@ recipe:
       duration: 4m
       end: cheese.end
       dependsOn:
-    - id: combine
-      desc:
-      start:
-      duration: 5m
-      end:
-      dependsOn: cheese pasta
-    - id: bake
+    - id: combine_n_bake
       desc:
       start:
       duration: 20m
       end:
-      dependsOn: combine
+      dependsOn: cheese
 ---
