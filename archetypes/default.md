@@ -1,6 +1,21 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
-draft: true
+draft: false
+layout: recipes
+recipe:
+  servings: 6
+  ingredients:
+    - group: Main
+      items:
+        - name: flour
+          amount: 1 cup
+          instruction:
+  instructions:
+    - 'Cook'
+  gantt:
+    - id: cook
+      start: 0
+      duration: 30m
+      dependsOn:
 ---
-
