@@ -57,7 +57,7 @@ export function appendIngredients(
 
     if (ingredientGroups.length > 1) {
       // Only list group name if there is more than one group.
-      const groupHeading = document.createElement('h2');
+      const groupHeading = document.createElement('h3');
       groupHeading.innerHTML = group.name;
       ingredientDiv.appendChild(groupHeading);
     }
@@ -175,7 +175,7 @@ export function createIngredientGroupDiv(
 
   const em = document.createElement('em');
   em.innerHTML = 'Combined';
-  const groupHeading = document.createElement('h2');
+  const groupHeading = document.createElement('h3');
   groupHeading.appendChild(em);
 
   container.appendChild(groupHeading);

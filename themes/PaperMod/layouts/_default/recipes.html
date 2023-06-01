@@ -52,7 +52,7 @@
       <!--
       Ingredients
       -->
-      <div id="ingredient-heading">
+      <div id="ingredients-heading">
         <h1>Ingredients</h1>
         <button id="ingredients-combine-btn" class="display-none">
           <svg id="ingredient-split" class="display-none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-expand" viewBox="0 0 16 16">
@@ -86,8 +86,10 @@
     Instructions
     -->
     {{- if .Params.recipe.gantt }}
-    <div id="ingredients-container">
-      <h1>Instructions</h1>
+    <div id="instructions-container">
+      <div id="instructions-heading">
+        <h1>Instructions</h1>
+      </div>
       <div id="instructions-list-container">
         <ol id="instructions-list"></ol>
       </div>

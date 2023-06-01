@@ -13,7 +13,7 @@ export function appendInstructions(
     const listItem = document.createElement('li');
     const listDiv = document.createElement('div');
 
-    const stepHeading = document.createElement('h2');
+    const stepHeading = document.createElement('h3');
     stepHeading.innerHTML = `Step ${idx}`;
     const stepInstruction = document.createElement('p');
     stepInstruction.innerHTML = item.desc;

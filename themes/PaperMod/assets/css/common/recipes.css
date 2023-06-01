@@ -1,4 +1,5 @@
 #gantt-container {
+  margin: 2em 0;
   padding: 10px 0;
   position: relative;
 }
@@ -14,16 +15,20 @@
 }
 
 #wordy-divs {
-  margin-top: 1em;
   display: flex;
   flex-wrap: wrap;
+  gap: 50px;
 }
 
 h1 {
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 h2 {
+  margin-bottom: 1em;
+}
+
+h3 {
   font-size: 1em;
   margin-top: 1em;
   margin-bottom: 0.5em;
@@ -33,9 +38,14 @@ h2 {
   width: 300px;
 }
 
-#ingredient-heading {
+#ingredients-heading {
   display: flex;
   align-items: baseline;
+}
+
+#instructions-heading,
+#ingredients-heading {
+  height: 2.5em;
 }
 
 #ingredient-groups-container ul li {
@@ -44,9 +54,6 @@ h2 {
 
 .ingredient-group-div {
   margin-bottom: 2em;
-}
-
-#instructions-container {
 }
 
 #instructions-list-container {
