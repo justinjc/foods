@@ -31,7 +31,7 @@ languages:
           url: search/
           weight: 1
         - name: Archive
-          url: archives
+          url: archives/
           weight: 5
         - name: Tags
           url: tags/
@@ -49,7 +49,7 @@ params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   hideFooter: true
   description: foods
-  author: me
+  # author: me
   # author: ["Me", "You"] # multiple authors
   hideMeta: true
   defaultTheme: auto

@@ -189,7 +189,7 @@ class GanttRow {
     let prevItem: GanttItem = firstItem;
     for (const [idx, item] of this.items.slice(1).entries()) {
       if (newItem.start >= prevItem.end && newItem.end <= item.start) {
-        this.items.splice(idx, 0, item);
+        this.items.splice(idx, 0, newItem);
         return true;
       }
       prevItem = item;
@@ -250,7 +250,6 @@ export class GanttData {
         if (placed) {
           placedIndexes.push(idx);
           placedItems.set(item.id, item);
-
           this.place(item);
         }
       }
