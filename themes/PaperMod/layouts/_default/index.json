@@ -2,14 +2,18 @@
 {{- range site.RegularPages -}}
   {{- if and (not .Params.searchHidden) (ne .Layout `archives`) (ne .Layout `search`) }}
     {{- $data := newScratch -}}
-    {{- range .Params.recipe.ingredients -}}
-      {{- $data.Add "ingredients" (slice .name) -}}
+    {{- range $group := .Params.recipe.ingredients -}}
+      {{- range $group.items -}}
+        {{- $data.Add "ingredients" (slice .name) -}}
+      {{- end -}}
     {{- end -}}
     {{- range .Params.recipe.gantt -}}
-      {{- $data.Add "instructionIDs" (slice .id) -}}
-      {{- $data.Add "instructionDescs" (slice .desc) -}}
+      {{- $data.Add "ganttIDs" (slice .id) -}}
     {{- end -}}
-    {{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" .Summary "ingredients" ($data.Get  "ingredients") "instructionIDs" ($data.Get  "instructionIDs") "instructionDescs" ($data.Get  "instructionDescs")) -}}
+    {{- range .Params.recipe.instructions -}}
+      {{- $data.Add "instructions" (slice .) -}}
+    {{- end -}}
+    {{- $.Scratch.Add "index" (dict "title" .Title "content" .Plain "permalink" .Permalink "summary" .Summary "ingredients" ($data.Get  "ingredients") "ganttIDs" ($data.Get  "ganttIDs") "instructions" ($data.Get  "instructions")) -}}
   {{- end }}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}
