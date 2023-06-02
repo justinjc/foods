@@ -187,17 +187,29 @@ export function createIngredientGroupDiv(
 
   container.appendChild(groupHeading);
 
-  const ingredientList = createIngredientList(group);
+  const ingredientList = createIngredientList(group, true);
   container.appendChild(ingredientList);
 
   return container;
 }
 
-function createIngredientList(group: IngredientGroup): HTMLUListElement {
+function createIngredientList(
+  group: IngredientGroup,
+  createCheckbox = false,
+): HTMLUListElement {
   const ingredientList = document.createElement('ul');
 
   for (const item of group.items) {
     const ingredientListItem = document.createElement('li');
+
+    if (createCheckbox) {
+      const ingredientCheckbox = document.createElement(
+        'input',
+      ) as HTMLInputElement;
+      ingredientCheckbox.type = 'checkbox';
+      ingredientCheckbox.classList.add('ingredient-checkbox');
+      ingredientListItem.appendChild(ingredientCheckbox);
+    }
 
     const ingredientAmountSpan = document.createElement('span');
     ingredientAmountSpan.innerHTML = item.amount;

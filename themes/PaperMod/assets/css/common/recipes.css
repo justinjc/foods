@@ -54,10 +54,22 @@ h3 {
 }
 
 #ingredient-groups-container ul li {
-  /* list-style: none; */
   list-style: circle;
-  /* padding-left: px; */
   margin-bottom: 0.5em;
+}
+
+#ingredient-groups-container .combined-ingredient-group-div ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+#ingredient-groups-container .combined-ingredient-group-div ul li {
+  list-style: none;
+  padding: 0;
+}
+
+.ingredient-checkbox {
+  margin-right: 12px;
 }
 
 .ingredient-group-div {
