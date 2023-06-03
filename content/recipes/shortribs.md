@@ -40,10 +40,10 @@ recipe:
           amount: 4 sprigs
         - name: thyme
           amount: 3 sprigs
-        - name: rosemary
-          amount: 1 sprigs
         - name: oregano
           amount: 2 sprigs
+        - name: rosemary
+          amount: 1 sprigs
         - name: bay leaf
           amount: 1
   instructions:
