@@ -17,5 +17,6 @@ recipe:
     - id: cook
       start: 0
       duration: 30m
+      end:
       dependsOn:
 ---

@@ -27,7 +27,7 @@ h3 {
 }
 
 #servings {
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 #ingredients-container {
@@ -88,4 +88,8 @@ h3 {
 
 #ingredients-combine-btn {
   margin-left: 10px;
+}
+
+.ingredient-amount {
+  font-weight: bold;
 }

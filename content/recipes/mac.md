@@ -1,5 +1,5 @@
 ---
-title: Mac n cheese
+title: Mac n Cheese
 date: 2023-05-21T12:30:18-04:00
 draft: false
 layout: recipe
@@ -36,13 +36,13 @@ recipe:
         - name: sodium citrate
           amount: 2 tsp
   instructions:
-    - 'Preheat oven to 350 F'
-    - 'Cook bacon and shrimp; wash pan'
-    - 'Make breadcrumbs; wash pan'
+    - 'Preheat oven to 350 F.'
+    - 'Cook bacon and shrimp; wash pan.'
+    - 'Make breadcrumbs; wash pan.'
     - 'Cheese sauce: make lightly browned roux. Add all the cold milk and
     sodium citrate and bring to a light simmer. Add melty cheese.'
     - 'Boil macaroni for 4 minutes.'
-    - 'Combine ingredients and bake.'
+    - 'Combine ingredients and bake until bubbly.'
   gantt:
     - id: preheat_350F
       start: 0
