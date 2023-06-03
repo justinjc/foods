@@ -2,7 +2,7 @@
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 draft: false
-layout: recipes
+layout: recipe
 recipe:
   servings: 6
   ingredients:
