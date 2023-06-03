@@ -4,7 +4,8 @@ date: 2023-06-03T00:38:15-04:00
 draft: false
 layout: recipe
 recipe:
-  servings: 6
+  source: https://www.youtube.com/watch?v=6I55Yf_ThSg&t=73s
+  servings: 4
   ingredients:
     - group: Pork sliver marinade
       items:

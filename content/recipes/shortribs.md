@@ -4,6 +4,7 @@ date: 2023-06-03T17:31:04-04:00
 draft: false
 layout: recipe
 recipe:
+  source: https://www.bonappetit.com/recipe/red-wine-braised-short-ribs
   servings: 4
   ingredients:
     - group: Bits

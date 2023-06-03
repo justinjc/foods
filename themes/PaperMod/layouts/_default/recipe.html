@@ -91,7 +91,9 @@
     {{- if .Params.recipe.instructions }}
     <div id="instructions-container">
       <div id="instructions-heading">
-        <h2>Instructions</h2>
+        <h2>Instructions
+          {{- if .Params.recipe.source }}<a class="source-link" href="{{ .Params.recipe.source }}">(source)</a>{{- end }}
+        </h2>
       </div>
       <div id="instructions-list-container">
         <ol id="instructions-list">

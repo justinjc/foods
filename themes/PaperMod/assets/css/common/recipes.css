@@ -93,3 +93,14 @@ h3 {
 .ingredient-amount {
   font-weight: bold;
 }
+
+.source-link {
+  font-size: 12px;
+  font-weight: normal;
+  margin-left: 1ch;
+  color: var(--secondary);
+}
+
+.source-link:hover {
+  text-decoration: underline;
+}
