@@ -4,7 +4,7 @@ date: {{ .Date }}
 draft: false
 layout: recipe
 recipe:
-  servings: 6
+  servings: 4
   ingredients:
     - group: Main
       items:
