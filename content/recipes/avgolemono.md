@@ -14,8 +14,8 @@ recipe:
           amount: 1 cup
         - name: onion
           amount: 1 cup
-        - name: garlic cloves
-          amount: 4
+        - name: garlic
+          amount: 4 cloves
         - name: orzo
           amount: 100g
         - name: chicken breasts

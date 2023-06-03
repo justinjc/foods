@@ -31,26 +31,26 @@ recipe:
       duration: 45m
       end:
       dependsOn:
+    - id: shred_cheese
+      start: 0
+      duration: 20m
+      end:
+      dependsOn:
     - id: bacon
       start: 0
       duration: 20m
       end:
-      dependsOn:
-    - id: spinach
+      dependsOn: shred_cheese
+    - id: clean_n_cook_spinach
       start: 0
-      duration: 20m
-      end:
-      dependsOn:
-    - id: shred_cheese
-      start: 0
-      duration: 20m
+      duration: 30m
       end:
       dependsOn:
     - id: combine_n_fill
       start: 0
       duration: 20m
       end:
-      dependsOn: bacon spinach blind_bake
+      dependsOn: bacon clean_n_cook_spinach blind_bake
     - id: bake_350F
       start: 0
       duration: 45m

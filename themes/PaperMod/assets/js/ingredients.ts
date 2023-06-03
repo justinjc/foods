@@ -74,7 +74,7 @@ type IngredientDataset = {
 };
 
 const amountRegex =
-  /^\s*(?<quantity>[0-9]+(?:\.[0-9]+)?)\s*(?<unit>[a-zA-Z].*)?\s*$/;
+  /^\s*(?<quantity>[0-9]+(?:\.[0-9]+)?)\s*(?<unit>[a-zA-Z"].*)?\s*$/;
 type AmountRegexGroups = {
   quantity: string;
   unit: string;
@@ -116,9 +116,15 @@ export function combineGroups(groups: IngredientGroup[]): IngredientGroup {
 
   const items: Item[] = [];
   itemsMap.forEach((v, k) => {
+    let amount = roundDP(v.quantity, 3).toString();
+    if (v.unit !== '"') {
+      amount += ' ';
+    }
+    amount += v.unit;
+
     items.push({
       name: k,
-      amount: `${roundDP(v.quantity, 3)} ${v.unit}`,
+      amount: amount,
       instruction: '',
     });
   });
