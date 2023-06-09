@@ -21,6 +21,8 @@ recipe:
           amount: 0.5 tsp
     - group: Main
       items:
+        - name: oil
+          amount: 0.5 cup
         - name: pork
           amount: 1 lb
           instruction: in slivers
