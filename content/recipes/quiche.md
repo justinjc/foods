@@ -18,6 +18,8 @@ recipe:
           amount: 3 slices
         - name: spinach
           amount: 6 oz
+        - name: cheese
+          amount: 4 oz
   instructions:
     - 'Blind bake crust.'
     - 'Cook bacon and spinach. Shred cheese.'
