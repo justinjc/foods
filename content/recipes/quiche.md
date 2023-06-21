@@ -9,9 +9,9 @@ recipe:
     - group: Main
       items:
         - name: eggs
-          amount: 4
-        - name: milk or cream
-          amount: 1 cup
+          amount: 5
+        - name: milk and/or cream
+          amount: 1.25 cup
         - name: 9" pie crust
           amount: 1
         - name: extra thick bacon
@@ -19,7 +19,7 @@ recipe:
         - name: spinach
           amount: 6 oz
         - name: cheese
-          amount: 4 oz
+          amount: 3 oz
   instructions:
     - 'Blind bake crust.'
     - 'Cook bacon and spinach. Shred cheese.'
