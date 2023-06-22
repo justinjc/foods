@@ -21,7 +21,7 @@ recipe:
           amount: 1 stalk
           instruction: diced
         - name: dried shiitake
-          amount: 6
+          amount: 7
           instruction: rehydrated and sliced
     - group: Others
       items:
@@ -55,7 +55,8 @@ recipe:
     - 'Add better than bouillon beef and red wine and reduce by 50%.'
     - 'Place short ribs bone-side down and enough water to nearly cover the beef,
       then add in the rest of the herbs.'
-    - 'Cook for 3 hours in the oven at 350F.'
+    - 'Cook for around 2 hours in the oven at 350F, checking periodically for tenderness
+      and having enough braising liquid.'
   gantt:
     - id: sear_short_ribs
       start: 0
