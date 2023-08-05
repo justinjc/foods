@@ -86,7 +86,7 @@ export class GanttItem {
 
   private parseStartEnd(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>,
+    resolvedItems?: Map<string, GanttItem>
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -122,7 +122,7 @@ export class GanttItem {
 
   private parseDependsOn(
     input?: string,
-    resolvedItems?: Map<string, GanttItem>,
+    resolvedItems?: Map<string, GanttItem>
   ): number | ParseStatus {
     if (!input) {
       return ParseStatus.NoInput;
@@ -222,7 +222,7 @@ type GanttItemPos = {
 
 export enum DisplayOrientation {
   Horizontal,
-  Vertical,
+  Vertical
 }
 
 export type DisplayOptions = {
@@ -299,7 +299,7 @@ export class GanttData {
 
 enum ParseStatus {
   Unresolved = 'unresolved',
-  NoInput = 'noinput',
+  NoInput = 'noinput'
 }
 
 type DurationGroups = {
@@ -317,12 +317,12 @@ const startEndRegex =
 
 enum IDBorder {
   Start = 'start',
-  End = 'end',
+  End = 'end'
 }
 
 enum Operator {
   Plus = '+',
-  Minus = '-',
+  Minus = '-'
 }
 
 type StartEndRegexGroups = {
@@ -365,7 +365,7 @@ export function ganttItemsFromDOM(): GanttItem[] {
 
   const ganttDomData = document.getElementById('gantt-data');
   if (ganttDomData === null) {
-    throw new Error('gantt-data element not found');
+    return [];
   }
 
   let childIdx = 0;
@@ -373,7 +373,7 @@ export function ganttItemsFromDOM(): GanttItem[] {
     const item = ganttDomData.children[i] as HTMLElement;
     const itemDataset = {
       ...item.dataset,
-      idx: childIdx++,
+      idx: childIdx++
     } as InputDataset;
 
     if (!GanttItem.validInput(itemDataset)) {
@@ -389,7 +389,7 @@ export function ganttItemsFromDOM(): GanttItem[] {
 export function appendGantt(
   ganttData: GanttData,
   ganttDiv: HTMLDivElement,
-  displayOpts: DisplayOptions,
+  displayOpts: DisplayOptions
 ) {
   for (const [rowIdx, ganttRow] of ganttData.rows.entries()) {
     for (const item of ganttRow.items) {
@@ -401,7 +401,7 @@ export function appendGantt(
         h: displayOpts.rowThickness,
         w: item.duration * displayOpts.durationScale,
         x: item.start * displayOpts.durationScale,
-        y: rowIdx * (displayOpts.rowThickness + displayOpts.rowGap),
+        y: rowIdx * (displayOpts.rowThickness + displayOpts.rowGap)
       };
       switch (displayOpts.orientation) {
         case DisplayOrientation.Horizontal:
@@ -413,7 +413,7 @@ export function appendGantt(
           break;
         default:
           throw new Error(
-            `unknown gantt orientation ${displayOpts.orientation}`,
+            `unknown gantt orientation ${displayOpts.orientation}`
           );
       }
 
