@@ -51,7 +51,7 @@ recipe:
     - 'Simmer for 40 minutes. Strain solids out, picking out lobster meat.'
     - 'Add crushed tomatoes, paprika, and rice. Simmer until rice is soft (around 30 minutes).'
     - 'Blend.'
-    - 'Add brandy, cream, worcesterstire sauce and cayenne.'
-    - 'Add in lobster tails.'
+    - 'Add brandy, cream, worcestershire sauce and cayenne.'
+    - 'Cut lobster meat to desired size and add to soup.'
   gantt: []
 ---
