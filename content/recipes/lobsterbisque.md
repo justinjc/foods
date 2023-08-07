@@ -28,7 +28,7 @@ recipe:
     - group: After straining
       items:
         - name: tomatoes
-          amount: 1 cup
+          amount: 1.25 cup
         - name: paprika
           amount: 2 tsp
         - name: rice
