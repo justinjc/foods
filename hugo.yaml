@@ -3,7 +3,7 @@ defaultContentLanguage: en
 title: Foods
 theme: PaperMod
 
-paginate: 5
+paginate: 100
 
 enableInlineShortcodes: true
 enableRobotsTXT: true
@@ -127,7 +127,7 @@ params:
         'content',
         'ingredients',
         'instructions',
-        'ganttIDs',
+        'ganttIDs'
       ]
 
 markup:
