@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://justinjc.github.io/foods/</loc>
-    <lastmod>2024-01-07T00:22:40-05:00</lastmod>
+    <loc>https://justinjc.github.io/foods/recipes/aruguladressing/</loc>
+    <lastmod>2024-01-08T23:35:39-05:00</lastmod>
   </url><url>
-    <loc>https://justinjc.github.io/foods/recipes/lobsterroll/</loc>
-    <lastmod>2024-01-07T00:22:40-05:00</lastmod>
+    <loc>https://justinjc.github.io/foods/</loc>
+    <lastmod>2024-01-08T23:35:39-05:00</lastmod>
   </url><url>
     <loc>https://justinjc.github.io/foods/recipes/</loc>
+    <lastmod>2024-01-08T23:35:39-05:00</lastmod>
+  </url><url>
+    <loc>https://justinjc.github.io/foods/recipes/lobsterroll/</loc>
     <lastmod>2024-01-07T00:22:40-05:00</lastmod>
   </url><url>
     <loc>https://justinjc.github.io/foods/recipes/shepherdspie/</loc>
