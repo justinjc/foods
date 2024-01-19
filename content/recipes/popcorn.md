@@ -22,6 +22,6 @@ recipe:
     - 'Put oil in pot and heat on high until 400F.'
     - 'Put three kernels in and wait until they pop.'
     - 'Put the rest of the kernels in together with the sugar and salt and stir thoroughly.'
-    - 'Lid the pot and constantly agitate. When the popping becomes frequent, lower the heat and continue to agitate until popping becomes unfrequent.'
+    - 'Lid the pot and constantly agitate. When the popping becomes frequent, lower the heat and continue to agitate until popping becomes infrequent.'
     - 'Pour popcorn into a large bowl at let cool before handling.'
 ---
