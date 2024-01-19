@@ -11,7 +11,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 08 Jan 2024 23:35:39 -0500</lastBuildDate><atom:link href="https://justinjc.github.io/foods/recipes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Jan 2024 16:34:50 -0500</lastBuildDate><atom:link href="https://justinjc.github.io/foods/recipes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Popcorn</title>
+      <link>https://justinjc.github.io/foods/recipes/popcorn/</link>
+      <pubDate>Fri, 19 Jan 2024 16:34:50 -0500</pubDate>
+      
+      <guid>https://justinjc.github.io/foods/recipes/popcorn/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Arugula Dressing</title>
       <link>https://justinjc.github.io/foods/recipes/aruguladressing/</link>
