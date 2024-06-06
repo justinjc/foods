@@ -29,7 +29,7 @@ recipe:
         - name: better than bouillon
           amount: 1 tbsp
         - name: eggs
-          amount: 2
+          amount: 3
         - name: lemon juice
           amount: 60 ml
           instruction: to start
