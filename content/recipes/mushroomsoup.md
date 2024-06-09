@@ -22,7 +22,7 @@ recipe:
         - name: flour
           amount: 1 tbsp
         - name: chicken broth
-          amount: 2.5 cups
+          amount: 2 cups
         - name: thyme
           amount: 1 tsp
         - name: heavy cream
