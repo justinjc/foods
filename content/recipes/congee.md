@@ -13,14 +13,14 @@ recipe:
         - name: water
           amount: 4 cups
         - name: dried shiitake mushroom
-          amount: 6
+          amount: 4
         - name: dried scallop
-          amount: 3
+          amount: 2
         - name: ginger
-          amount: 2 inches
+          amount: 1 inches
           instruction: sliced
         - name: chicken bouillon
-          amount: 1 tsp
+          amount: 2 tsp
   instructions:
     - 'Soak mushrooms and scallops overnight.'
     - 'Slice mushrooms and shred scallops.'
