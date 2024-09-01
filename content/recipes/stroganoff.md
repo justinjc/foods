@@ -47,7 +47,7 @@ recipe:
       for 10 minutes.'
     - 'Drain beef and pat dry. Lightly season with salt and pepper.'
     - 'Sear beef and reserve.'
-    - 'Cook onion and mushrooms in butter. Add garlic and cooka couple minutes.'
+    - 'Cook onion and mushrooms in butter. Add garlic and cook a couple minutes.'
     - 'Add flour and mix until well combined, then add rest of ingredients
       except for sour cream.'
     - 'Cook and reduce to desired consistency, then add sour cream to taste.'
