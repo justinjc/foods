@@ -3,7 +3,8 @@ defaultContentLanguage: en
 title: Foods
 theme: PaperMod
 
-paginate: 100
+pagination:
+  pagerSize: 100
 
 enableInlineShortcodes: true
 enableRobotsTXT: true
