@@ -16,7 +16,7 @@ recipe:
           amount: 1
           instruction: diced
         - name: poblano pepper
-          amount: 1
+          amount: 2
           instruction: diced
         - name: garlic
           amount: 4 cloves
@@ -36,7 +36,7 @@ recipe:
         - name: lime
           amount: 1
         - name: avocado
-          amount: 1
+          amount: 0.5
           instruction: optional
         - name: cheddar
           amount: 0.25 lb
@@ -44,10 +44,11 @@ recipe:
         - name: tortilla chips
           amount: 10
   instructions:
+    - 'Pan sear chicken. Shred and reserve.'
     - 'Saute onion, cubanelle pepper, and poblano pepper for 15 minutes.'
     - 'Add in garlic and chiptole pepper and cook for another 5 minutes.'
-    - 'Add chicken broth, tomatoes, cumin, chicken, cilantro, lime.'
-    - 'After around 10 minutes, pull chicken out and shred when cool. Continue simmering for at least 1 hour.'
-    - 'Add chicken back in and stir.'
-    - 'Add avocado, shredded cheddar, cilantro as garnish. Serve with tortilla chips.'
+    - 'Add chicken broth, tomatoes, cumin, chicken.'
+    - 'Continue simmering for at least 1 hour.'
+    - 'Add cilantro, lime, and shredded chicken in and stir.'
+    - 'Serve topped with avocado, shredded cheddar, and tortilla chips.'
 ---
