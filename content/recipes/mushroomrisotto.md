@@ -13,15 +13,15 @@ recipe:
         - name: chicken stock
           amount: 1.5 cup
         - name: shiitake mushroom
-          amount: 0.2 lb
+          amount: 0.5 lb
         - name: butter
           amount: 1 tsp
         - name: white balsamic vinegar
           amount: 1 tsp
         - name: tamari
-          amount: 1 tsp
+          amount: 2 tsp
         - name: oyster mushroom
-          amount: 0.5 lb
+          amount: 0.2 lb
         - name: shallot
           amount: 1
           instruction: minced
@@ -30,13 +30,13 @@ recipe:
         - name: parmesan
           amount: 1 cup
           instruction: grated
+        - name: heavy cream (optional)
+          amount: 2 tbsp
   instructions:
-    - 'Cook shiitake in butter until roasted. Mix tamari and vinegar with some water and add to pan. Saute until liquid has fully evaporated. Reserve shiitake.'
-    - 'Separate stems from oyster mushroom. Cut stems and reserve together with minced shallots and thyme. Hand shred the rest of the oyster mushrooms.'
-    - 'Roast oyster mushrooms in oil until brown. Reserve.'
-    - 'Cook oyster mushroom stems and shallots until shallots are soft and slightly caramelized.'
-    - 'Add in carnaroli and stock and mix thoroughly.'
+    - 'Cook shiitake in butter until brown. Mix tamari and vinegar with some water and add to pan gradually to taste. Reserve shiitake.'
+    - 'Cook oyster mushrooms in oil until brown. Add minced shallots and thyme and cook until shallots have softened.'
+    - 'Add in carnaroli and stock and mix.'
     - 'Lid the pan, rapidly bring to a simmer, then bring flame down to lowest setting. Continue cooking for 16 minutes.'
-    - 'Add in reserved oyster mushrooms and mix. Add water if needed to adjust consistency, then stir in parmesan.'
+    - 'Add water/heavy cream to desired consistency, then stir in parmesan.'
     - 'Serve in bowl and add shiitake on top.'
 ---
