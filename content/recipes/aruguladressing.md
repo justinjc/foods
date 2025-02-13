@@ -19,6 +19,8 @@ recipe:
           amount: 1
         - name: white wine vinegar
           amount: 1 tsp
+        - name: olive oil
+          amount: 3 tbsp
         - name: salt
           amount: 1 pinch
   instructions:
