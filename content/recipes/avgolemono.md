@@ -4,27 +4,27 @@ date: 2023-06-02T23:39:31-04:00
 draft: false
 layout: recipe
 recipe:
-  servings: 2
+  servings: 4
   ingredients:
     - group: Bits
       items:
         - name: carrot
           amount: 1 cup
         - name: celery
-          amount: 2 stalks
+          amount: 1 cup
         - name: onion
-          amount: 1
+          amount: 1 cup
         - name: garlic
           amount: 4 cloves
         - name: orzo
-          amount: 80g
+          amount: 100g
         - name: chicken breasts
           amount: 2
           instruction: cooked
     - group: Soup
       items:
         - name: water
-          amount: 3 cup
+          amount: 4 cup
           instruction: to start
         - name: better than bouillon
           amount: 1 tbsp
