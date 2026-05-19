@@ -11,7 +11,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Mar 2025 19:20:39 -0400</lastBuildDate><atom:link href="https://justinjc.github.io/foods/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 May 2026 18:28:54 -0400</lastBuildDate><atom:link href="https://justinjc.github.io/foods/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Shakshuka</title>
+      <link>https://justinjc.github.io/foods/recipes/shakshuka/</link>
+      <pubDate>Tue, 19 May 2026 18:28:54 -0400</pubDate>
+      
+      <guid>https://justinjc.github.io/foods/recipes/shakshuka/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Duck Confit</title>
       <link>https://justinjc.github.io/foods/recipes/duckconfit/</link>
